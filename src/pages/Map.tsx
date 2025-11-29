@@ -11,6 +11,7 @@ import {
   NavigationContextType,
 } from "../utils/types";
 import Sidebar from "@/components/Sidebar";
+import Loading from "./Loading";
 
 export const NavigationContext = createContext<NavigationContextType | null>(
   null
@@ -34,9 +35,14 @@ function Map() {
 
   useEffect(() => {
     setSearchParams({ position: navigation.start });
-  }, [navigation.start]);
+  }, [navigation.start, setSearchParams]);
 
   const mapData = useMapData();
+  
+  if (mapData.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <MapDataContext.Provider value={mapData}>
       <NavigationContext.Provider value={navigationValue}>

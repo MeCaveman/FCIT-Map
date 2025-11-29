@@ -23,7 +23,7 @@ function App() {
           <Route path="/accessibility" element={<Accessibility />} />
           <Route path="/emergency" element={<Emergency />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/map/:position?" element={<Map />} />
+          <Route path="/map" element={<Map />} />
         </Routes>
         <ToastContainer position="bottom-left" closeOnClick autoClose={2500} />
         <Analytics />

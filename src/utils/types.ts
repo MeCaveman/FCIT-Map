@@ -34,6 +34,7 @@ export interface MapDataContextType {
   objects: ObjectItem[];
   categories: Category[];
   beacons?: Beacon[];
+  isLoading?: boolean;
   refetchData: () => void;
 }
 
