@@ -103,6 +103,10 @@ function ObjectItemDetailsModal({
             object={object}
             handleEditClick={handleEditClick}
             objectNavigation={objectNavigation}
+            onClose={() => {
+              onClose();
+              setIsEditMode(false);
+            }}
           />
         )}
       </Dialog>
