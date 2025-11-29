@@ -180,7 +180,7 @@ function Sidebar() {
           </p>
         </div>
 
-        {categoryGroups.map((group, groupIndex) => (
+        {categoryGroups.map((group) => (
           <div key={group.category.id} className="mb-2">
             {/* Category Header */}
             <div

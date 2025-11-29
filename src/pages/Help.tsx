@@ -1,9 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import {
   FaArrowLeft,
-  FaSearch,
-  FaMousePointer,
-  FaRoute,
   FaSearchPlus,
   FaHandPaper,
   FaRedo,
