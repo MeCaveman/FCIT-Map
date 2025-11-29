@@ -6,11 +6,9 @@ import { Category, ObjectItem } from "@/utils/types";
 function useMapData() {
   const [objects, setObjects] = useState<ObjectItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
       const objectsData = await getObjects();
       const categoriesData = await getCategories();
       // Add categoryName to each object
@@ -23,8 +21,6 @@ function useMapData() {
       setCategories(categoriesData);
     } catch (error) {
       console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -32,7 +28,7 @@ function useMapData() {
     fetchData();
   }, []);
 
-  return { objects, categories, isLoading, refetchData: fetchData };
+  return { objects, categories, refetchData: fetchData };
 }
 
 export default useMapData;

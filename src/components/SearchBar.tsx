@@ -166,16 +166,16 @@ function SearchBar() {
   }
 
   return (
-    <div className="md:w-80 w-full flex flex-row">
+    <div className="md:w-96 w-full flex flex-row">
       <div className="flex flex-inline rounded w-full">
-        <div className="h-10 w-10 center flex-none rounded-l bg-white text-blue-500 text-[8px] ">
+        <div className="h-12 w-12 center flex-none rounded-l bg-white text-blue-500 text-[8px] ">
           <div className="w-full h-8 center border-gray-300 border-r">
             <FiCircle />
           </div>
         </div>
         <div className="flex w-full relative">
           <input
-            className={`h-10 p-3 w-full flex-none text-gray-900 text-sm ${
+            className={`h-12 p-4 w-full flex-none text-gray-900 text-sm md:text-md ${
               isInputInvalid && "input-error"
             } `}
             placeholder="Search"
@@ -223,7 +223,7 @@ function SearchBar() {
         <div className="">
           <Tooltip content="Search" className="bg-blue-500">
             <button
-              className="h-10 w-10 flex flex-none center justify-center rounded-r bg-blue-500 text-white"
+              className="h-12 w-12 flex flex-none center justify-center rounded-r bg-blue-500 text-white"
               onClick={() => handleSearch(inputValue)}
               aria-label="search"
             >

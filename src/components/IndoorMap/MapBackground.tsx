@@ -1,4 +1,4 @@
-import floorplan from "@/assets/img/floorf1-entire-floor.svg";
+import floorplan from "@/assets/img/floorf1s1_boxy_v2.svg";
 import { ReactNode } from "react";
 
 interface MapBackgroundProps {
@@ -8,21 +8,19 @@ interface MapBackgroundProps {
 function MapBackground({ children }: MapBackgroundProps) {
   return (
     <svg
-      viewBox="0 0 5063.04 10655.04"
-      className="lg:h-[85vh] lg:w-[75vw] h-[85dvh] w-full"
+      viewBox="0.469 0.006 1461.95 1149.136"
+      className="lg:h-[85vh] lg:w-[75vw] h-[85dvh]"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
-      preserveAspectRatio="xMidYMid meet"
     >
       <image 
         id="background" 
         x="0" 
         y="0" 
-        width="5063.04" 
-        height="10655.04" 
-        href={floorplan}
+        width="1461.95" 
+        height="1149.136" 
         xlinkHref={floorplan}
-        preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="none"
       />
       {children}
     </svg>
