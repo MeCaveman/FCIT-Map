@@ -64,7 +64,7 @@ function Emergency() {
         {/* Emergency Contacts Section */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaPhone className="text-blue-600 text-xl" />
+            <FaPhone className="text-green-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">
               Emergency Contacts
             </h2>
@@ -81,11 +81,11 @@ function Emergency() {
             </div>
 
             {/* Campus Security */}
-            <div className="bg-blue-50 rounded-lg p-4">
+            <div className="bg-green-50 rounded-lg p-4">
               <h3 className="font-semibold text-gray-900 mb-2">
                 Campus Security
               </h3>
-              <p className="text-2xl font-bold text-blue-600 mb-1">
+              <p className="text-2xl font-bold text-green-600 mb-1">
                 (555) 123-4567
               </p>
               <p className="text-sm text-gray-600">24/7 Available</p>
@@ -96,7 +96,7 @@ function Emergency() {
               <h3 className="font-semibold text-gray-900 mb-2">
                 Building Manager
               </h3>
-              <p className="text-2xl font-bold text-blue-600 mb-1">
+              <p className="text-2xl font-bold text-green-600 mb-1">
                 (555) 123-4568
               </p>
               <p className="text-sm text-gray-600">8 AM - 5 PM</p>
@@ -107,7 +107,7 @@ function Emergency() {
         {/* Assembly Points Section */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaMapMarkerAlt className="text-blue-600 text-xl" />
+            <FaMapMarkerAlt className="text-green-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">Assembly Points</h2>
           </div>
           <p className="text-gray-700 mb-4">
@@ -153,7 +153,7 @@ function Emergency() {
         {/* Emergency Exits Section */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaSignOutAlt className="text-blue-600 text-xl" />
+            <FaSignOutAlt className="text-green-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">Emergency Exits</h2>
           </div>
           <ul className="space-y-2 text-gray-700">
@@ -171,7 +171,7 @@ function Emergency() {
         {/* Safety Equipment Locations Section */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaShieldAlt className="text-blue-600 text-xl" />
+            <FaShieldAlt className="text-green-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">
               Safety Equipment Locations
             </h2>
@@ -206,7 +206,7 @@ function Emergency() {
         {/* Emergency Procedures Section */}
         <div className="bg-white rounded-xl shadow-sm p-6 mb-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaFileAlt className="text-blue-600 text-xl" />
+            <FaFileAlt className="text-green-600 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">
               Emergency Procedures
             </h2>
@@ -256,9 +256,9 @@ function Emergency() {
         </div>
 
         {/* Emergency Preparedness Team Section */}
-        <div className="bg-cyan-50 rounded-xl shadow-sm p-6">
+        <div className="bg-green-50 rounded-xl shadow-sm p-6">
           <div className="flex items-center gap-3 mb-4">
-            <FaUsers className="text-cyan-700 text-xl" />
+            <FaUsers className="text-green-700 text-xl" />
             <h2 className="text-xl font-bold text-gray-900">
               Emergency Preparedness Team
             </h2>
@@ -268,7 +268,7 @@ function Emergency() {
             concerns, contact the Emergency Preparedness Team at{" "}
             <a
               href="mailto:safety@fcit.edu"
-              className="text-blue-600 hover:text-blue-800 underline"
+              className="text-green-600 hover:text-green-800 underline"
             >
               safety@fcit.edu
             </a>
@@ -284,7 +284,7 @@ function Emergency() {
             </button>
             <button
               onClick={handleViewExitMap}
-              className="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-3 shadow-md transition-colors duration-200"
+              className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-xl flex items-center justify-center gap-3 shadow-md transition-colors duration-200"
             >
               <FaMap className="text-lg" />
               <span>View Exit Map</span>

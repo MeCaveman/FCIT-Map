@@ -100,7 +100,7 @@ function BuildingInfo() {
           <div className="space-y-4">
             {/* Floor 1 */}
             <div className="flex gap-4">
-              <div className="w-1 bg-blue-600 rounded-full flex-shrink-0"></div>
+              <div className="w-1 bg-green-600 rounded-full flex-shrink-0"></div>
               <div className="flex-1">
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
                   Floor 1 - Ground Floor
@@ -114,7 +114,7 @@ function BuildingInfo() {
 
             {/* Floor 2 */}
             <div className="flex gap-4">
-              <div className="w-1 bg-blue-600 rounded-full flex-shrink-0"></div>
+              <div className="w-1 bg-green-600 rounded-full flex-shrink-0"></div>
               <div className="flex-1">
                 <h3 className="text-lg font-semibold text-gray-900 mb-1">
                   Floor 2 - Faculty Offices
@@ -138,7 +138,7 @@ function BuildingInfo() {
             {/* Free WiFi */}
             <div className="flex items-start gap-4">
               <div className="mt-1">
-                <FaWifi className="text-blue-600 text-2xl" />
+                <FaWifi className="text-green-600 text-2xl" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">Free WiFi</h3>
@@ -151,7 +151,7 @@ function BuildingInfo() {
             {/* Cafeteria */}
             <div className="flex items-start gap-4">
               <div className="mt-1">
-                <FaCoffee className="text-blue-600 text-2xl" />
+                <FaCoffee className="text-green-600 text-2xl" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">Cafeteria</h3>
@@ -164,7 +164,7 @@ function BuildingInfo() {
             {/* Print Services */}
             <div className="flex items-start gap-4">
               <div className="mt-1">
-                <FaPrint className="text-blue-600 text-2xl" />
+                <FaPrint className="text-green-600 text-2xl" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">
@@ -179,7 +179,7 @@ function BuildingInfo() {
             {/* Study Areas */}
             <div className="flex items-start gap-4">
               <div className="mt-1">
-                <FaUsers className="text-blue-600 text-2xl" />
+                <FaUsers className="text-green-600 text-2xl" />
               </div>
               <div>
                 <h3 className="font-semibold text-gray-900 mb-1">
@@ -196,7 +196,7 @@ function BuildingInfo() {
         {/* View Interactive Map Button */}
         <button
           onClick={handleViewMap}
-          className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-md transition-colors duration-200"
+          className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-4 px-6 rounded-xl flex items-center justify-center gap-3 shadow-md transition-colors duration-200"
         >
           <FaMapMarkerAlt className="text-lg" />
           <span>View Interactive Map</span>
@@ -207,4 +207,3 @@ function BuildingInfo() {
 }
 
 export default BuildingInfo;
-
