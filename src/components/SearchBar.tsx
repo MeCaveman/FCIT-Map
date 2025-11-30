@@ -2,7 +2,6 @@ import Tooltip from "@/components/ui/Tooltip";
 import {
   navigateToObject,
   navigateWithDelay as navigationTestAll,
-  findNearestObjectByCategory,
 } from "@/utils/navigationHelper";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { FiCircle, FiNavigation } from "react-icons/fi";
@@ -16,7 +15,7 @@ import {
 
 function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
-  const { objects, categories } = useContext(MapDataContext) as MapDataContextType;
+  const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [suggestions, setSuggestions] = useState<ObjectItem[]>(objects);
   const [isAutocomplete, setIsAutocomplete] = useState<boolean>(false);
   const [isInputInvalid, setIsInputInvalid] = useState<boolean>(false);
@@ -70,27 +69,16 @@ function SearchBar() {
           setInputValue(suggestions[selectedIndex - 1].name);
         }
         event.preventDefault();
-      } else if (event.key === "Enter") {
+      } else if (event.key === "Enter" && selectedIndex >= 0) {
+        handleSuggestionClick(suggestions[selectedIndex]);
         event.preventDefault();
-        // If input matches a category, prefer nearest-by-category navigation
-        const trimmed = inputValue.trim().toLowerCase();
-        const category = categories?.find(
-          (c) => c.name.toLowerCase() === trimmed || c.id.toLowerCase() === trimmed
+        console.log(suggestions[selectedIndex].categoryName);
+
+        navigateToObject(
+          suggestions[selectedIndex].name,
+          navigation,
+          setNavigation
         );
-        if (category) {
-          handleSearch(inputValue);
-          return;
-        }
-        if (selectedIndex >= 0) {
-          handleSuggestionClick(suggestions[selectedIndex]);
-          navigateToObject(
-            suggestions[selectedIndex].name,
-            navigation,
-            setNavigation
-          );
-        } else {
-          handleSearch(inputValue);
-        }
       }
     }
   }
@@ -126,32 +114,11 @@ function SearchBar() {
   }
 
   function handleSearch(inputValue: string) {
-    const trimmed = inputValue.trim().toLowerCase();
-
-    // If user entered a category name or id, navigate to nearest object of that category
-    const category = categories?.find(
-      (c) => c.name.toLowerCase() === trimmed || c.id.toLowerCase() === trimmed
-    );
-    if (category) {
-      const nearest = findNearestObjectByCategory(
-        category.id,
-        navigation.start,
-        objects
-      );
-      if (nearest) {
-        navigateToObject(nearest.name, navigation, setNavigation);
-        setSelectedIndex(-1);
-        setIsAutocomplete(false);
-        setInputValue(nearest.name);
-        return;
-      }
-    }
-
-    // Exact object search fallback
     const matchingObject = objects.find(
-      (obj) => obj.name.toLowerCase() === trimmed
+      (obj) => obj.name.toLowerCase() === inputValue.trim().toLowerCase()
     );
     if (!matchingObject) {
+      //? To test the navigation feature
       if (inputValue === "Test") {
         const delay = 500;
         navigationTestAll(objects, 0, delay, navigation, setNavigation);

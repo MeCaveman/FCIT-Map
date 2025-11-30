@@ -8,8 +8,20 @@ import SearchBar from "./SearchBar";
 
 function Toolbar() {
   const { navigation } = useContext(NavigationContext) as NavigationContextType;
+  
+  const handleHomeClick = () => {
+    window.location.href = "/";
+  };
+  
   return (
     <div className="flex space-x-1 mb-4 h-12 relative">
+      <button
+        onClick={handleHomeClick}
+        className="flex items-center justify-center px-3 bg-white hover:bg-gray-50 border border-gray-300 rounded-lg shadow-sm transition-colors font-semibold text-gray-700"
+        aria-label="Return to home"
+      >
+        Home
+      </button>
       <SearchBar />
       <EditPositionButton />
       {navigation.end && isDesktop && <DesktopRouteDetails />}
