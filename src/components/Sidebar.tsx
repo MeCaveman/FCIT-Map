@@ -1,14 +1,19 @@
 import logo from "../assets/img/fcit-logo.svg";
 import { FiChevronRight } from "react-icons/fi";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import {
   MapDataContextType,
   NavigationContextType,
   ObjectItem,
 } from "@/utils/types";
 import { MapDataContext, NavigationContext } from "../pages/Map";
-
 import { navigateToObject } from "@/utils/navigationHelper";
+import { useNavigate } from "react-router-dom";
+
+interface SidebarProps {
+  isSidebarOpen: boolean;
+  setIsSidebarOpen: (value: boolean) => void;
+}
 
 interface ParsedObjects {
   [key: string]: {
@@ -17,13 +22,23 @@ interface ParsedObjects {
   };
 }
 
-function Sidebar() {
+function Sidebar({ isSidebarOpen, setIsSidebarOpen }: SidebarProps) {
   const { navigation, setNavigation, setIsEditMode } = useContext(
     NavigationContext
   ) as NavigationContextType;
+
   const { objects } = useContext(MapDataContext) as MapDataContextType;
+
   const [parsedObjects, setParsedObjects] = useState<ParsedObjects>({});
   const [isRotating, setIsRotating] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleHomeNavigation = useCallback(() => {
+    navigate("/");
+    setIsSidebarOpen(false); // collapse sidebar after navigation
+  }, [navigate, setIsSidebarOpen]);
+
   useEffect(() => {
     const groupedObjects = () => {
       const data: ParsedObjects = {};
@@ -47,16 +62,22 @@ function Sidebar() {
     const object = objects.find((obj) => obj.name === selectedObjectName);
     setIsEditMode(false);
     if (!object) return;
-    console.log(object);
     navigateToObject(object.name, navigation, setNavigation);
+    setIsSidebarOpen(false); // collapse sidebar after selecting an item
   }
 
   return (
-    <aside className="flex flex-col rounded-none w-[35rem] h-screen p-3 bg-white shadow-xl shadow-gray-200 -translate-x-full transform transition-transform duration-150 ease-in lg:translate-x-0 lg:shadow-md ">
+    <aside
+      className={`flex flex-col rounded-none h-screen p-3 bg-white shadow-xl shadow-gray-200 transform transition-all duration-200 ease-in
+      ${isSidebarOpen ? "translate-x-0 w-[35rem]" : "-translate-x-full w-[35rem]"}
+      lg:translate-x-0 lg:w-[35rem] lg:shadow-md`}
+    >
       <header className="flex flex-col mb-4 pr-1 border-b py-2 w-full relative">
-        {/* Info Icon and Info Panel removed */}
-        {/* Github link removed */}
-        <div className="flex items-center flex-none mr-10">
+        <div
+          className="flex items-center flex-none mr-10 cursor-pointer"
+          title="Go to Home"
+          onClick={handleHomeNavigation}
+        >
           <div className="rounded-md w-16 h-16 bg-gray-100 flex items-center justify-center shadow-md">
             <img
               src={logo}
@@ -66,18 +87,18 @@ function Sidebar() {
               onAnimationEnd={() => setIsRotating(false)}
             />
           </div>
+
           <div className="flex flex-col">
-            <div className="flex flex-col">
-              <p className="text-1xl font-semibold text-gray-900 pl-2">
-                FCIT Map
-              </p>
-              <p className="text-sm font-semibold text-[#225EA9] pl-2">
-                FCIT College Building Navigation
-              </p>
-            </div>
+            <p className="text-1xl font-semibold text-gray-900 pl-2">
+              FCIT Map
+            </p>
+            <p className="text-sm font-semibold text-[#225EA9] pl-2">
+              FCIT College Building Navigation
+            </p>
           </div>
         </div>
       </header>
+
       <div className="overflow-auto h-full">
         {Object.keys(parsedObjects)
           .sort()
@@ -92,7 +113,8 @@ function Sidebar() {
                   </span>
                 </h2>
               </header>
-              <div className="flex flex-col ">
+
+              <div className="flex flex-col">
                 {parsedObjects[letter].results.map((item) => (
                   <div
                     key={item.id?.toString()}
@@ -104,7 +126,7 @@ function Sidebar() {
                       <p className="text-xs 2xl:text-sm font-semibold">
                         {item.name}
                       </p>
-                      <p className="text-xs 2xl:text-sm  text-gray-600">
+                      <p className="text-xs 2xl:text-sm text-gray-600">
                         {item.desc}
                       </p>
                     </div>
@@ -120,4 +142,5 @@ function Sidebar() {
     </aside>
   );
 }
+
 export default Sidebar;
