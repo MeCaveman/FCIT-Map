@@ -1,23 +1,37 @@
 // useMapData.ts
-import { useState, useEffect } from "react";
-import { getObjects, getCategories } from "../services/mapServices";
+import { useState, useEffect, useContext } from "react";
+import { getCategories } from "../services/mapServices";
 import { Category, ObjectItem } from "@/utils/types";
+import { NavigationContext } from "@/pages/Map";
+import { NavigationContextType } from "@/utils/types";
+import roomsCatalog from "@/data/roomsCatalog";
 
 function useMapData() {
   const [objects, setObjects] = useState<ObjectItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
+  const context = useContext(NavigationContext) as NavigationContextType;
+  const currentFloor = context?.currentFloor || "F1";
 
   const fetchData = async () => {
     try {
-      const objectsData = await getObjects();
       const categoriesData = await getCategories();
-      // Add categoryName to each object
-      objectsData.forEach((obj) => {
-        obj.categoryName = categoriesData.find(
-          (cat) => cat.id === obj.categoryId
-        )?.name;
+      // Build objects purely from the central rooms catalog so it's the single source of truth
+      const objectsFromCatalog: ObjectItem[] = roomsCatalog.map((r) => ({
+        id: r.id,
+        name: r.name,
+        desc: r.desc || "",
+        categoryId: r.categoryId,
+        floor: r.floor,
+      }));
+
+      // Optional: filter by current floor in the future
+      // const floorFiltered = objectsFromCatalog.filter(o => o.floor === currentFloor);
+
+      // Set categoryName directly from catalog categoryId (using normalized categories)
+      objectsFromCatalog.forEach((obj) => {
+        obj.categoryName = obj.categoryId;
       });
-      setObjects(objectsData);
+      setObjects(objectsFromCatalog);
       setCategories(categoriesData);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -26,7 +40,7 @@ function useMapData() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [currentFloor]);
 
   return { objects, categories, refetchData: fetchData };
 }

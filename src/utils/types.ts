@@ -6,6 +6,9 @@ export interface ObjectItem {
   desc: string;
   categoryId: string;
   categoryName?: string;
+  uniqueId?: string;
+  // Optional floor identifier, e.g., "F1" or "F2"
+  floor?: string;
 }
 export interface Category {
   id: string;
@@ -28,6 +31,8 @@ export interface NavigationContextType {
   setNavigation: React.Dispatch<React.SetStateAction<Navigation>>;
   isEditMode: boolean;
   setIsEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  currentFloor: string;
+  setCurrentFloor: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export interface MapDataContextType {

@@ -4,16 +4,10 @@ import { DialogBody, DialogHeader } from "../ui/Dialog";
 
 interface ObjectDetailsViewProps {
   object: ObjectItem;
-  handleEditClick: () => void;
   objectNavigation: () => void;
 }
 
-function ObjectDetailsView({
-  object,
-  handleEditClick,
-  objectNavigation,
-}: ObjectDetailsViewProps) {
-  const isEditable = import.meta.env.PROD ? false : true;
+function ObjectDetailsView({ object, objectNavigation }: ObjectDetailsViewProps) {
   return (
     <>
       <DialogHeader>
@@ -23,6 +17,9 @@ function ObjectDetailsView({
         <div className="mb-6">
           <p className="text-lg font-medium text-gray-900">{object.name}</p>
           <p className="text-md text-gray-700">{object.desc}</p>
+          {object.floor && (
+            <p className="text-sm text-gray-500 mt-1">{object.floor === "F2" ? "Floor 2" : "Floor 1"}</p>
+          )}
         </div>
         <div className="inline-flex rounded-md right-0 bottom-0 p-2 absolute">
           <button
@@ -33,15 +30,6 @@ function ObjectDetailsView({
             <FiNavigation />
           </button>
         </div>
-        {isEditable && (
-          <button
-            className="text-blue-500 border-0 bg-inherit outline-none"
-            onClick={handleEditClick}
-            autoFocus={false}
-          >
-            Edit (not working anymore)
-          </button>
-        )}
       </DialogBody>
     </>
   );

@@ -1,5 +1,9 @@
+import { useContext } from "react";
 import { graphData } from "@/store/graphData";
+import { graphDataF2 } from "@/store/graphDataF2";
+import { NavigationContext } from "@/pages/Map";
 import { NavigationContextType } from "@/utils/types";
+import overlayTransforms from "@/config/overlayTransforms";
 
 interface PositionsProps {
   positionRadius: number;
@@ -13,10 +17,15 @@ function Positions({
   className,
   navigation,
 }: PositionsProps) {
+  const { currentFloor } = useContext(NavigationContext) as NavigationContextType;
+  const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
+  const t = overlayTransforms[(currentFloor as "F1" | "F2") || "F1"];
   const positionBackgroundColor = "#4285f4";
-  const positionBackgroundRadius = positionRadius + 7;
+  // Scale radius inversely so it appears consistent size across floors
+  const scaledRadius = positionRadius / t.scaleX;
+  const positionBackgroundRadius = scaledRadius + (7 / t.scaleX);
   const positonBackgroundOpacity = 0.2;
-  const startVertex = graphData.vertices.find(
+  const startVertex = currentGraphData.vertices.find(
     (v) => v.id === navigation?.start
   );
 
@@ -24,7 +33,7 @@ function Positions({
     return navigation?.start === vertexId;
   }
   return (
-    <g id="Vertexes">
+    <g id="Vertexes" transform={`translate(${t.translateX} ${t.translateY}) scale(${t.scaleX} ${t.scaleY})`}>
       {/* Background circle for Google Maps like look */}
       <circle
         id="background-circle"
@@ -34,7 +43,7 @@ function Positions({
         opacity={positonBackgroundOpacity}
         r={positionBackgroundRadius}
       />
-      {graphData.vertices.map((vertex) => (
+      {currentGraphData.vertices.map((vertex) => (
         <circle
           // only allow click on positions that are not referring to an object
           onClick={vertex.objectName ? () => {} : handlePositionClick}
@@ -44,7 +53,7 @@ function Positions({
           className={`position ${vertex.objectName ? "opacity-0" : className} ${isActivePosition(vertex.id) && "position-active opacity-100"}`}
           cx={vertex.cx}
           cy={vertex.cy}
-          r={positionRadius}
+          r={scaledRadius}
         />
       ))}
       {/* Circle animation */}
@@ -54,8 +63,8 @@ function Positions({
         cy={startVertex?.cy}
         fill="none"
         stroke="white"
-        strokeWidth={2}
-        r={positionRadius}
+        strokeWidth={2 / t.scaleX}
+        r={scaledRadius}
       >
         <animate
           attributeName="stroke-width"

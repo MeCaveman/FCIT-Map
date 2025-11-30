@@ -17,12 +17,73 @@
       "categoryId": "ent",
       "name": "Entrance 3",
       "desc": "Side Door Entrance"
+    },
+    {
+      "id": "mainhall",
+      "categoryId": "other",
+      "name": "Main Hall",
+      "desc": "Central main hall"
+    },
+    {
+      "id": "mainhallway",
+      "categoryId": "other",
+      "name": "Main Hallway",
+      "desc": "Primary hallway through the building"
+    },
+    {
+      "id": "labhallway1",
+      "categoryId": "lab",
+      "name": "Lab Hallway 1",
+      "desc": "First laboratory hallway"
+    },
+    {
+      "id": "labhallway2",
+      "categoryId": "lab",
+      "name": "Lab Hallway 2",
+      "desc": "Second laboratory hallway"
+    },
+    {
+      "id": "bath1",
+      "categoryId": "bath",
+      "name": "Bathroom 1",
+      "desc": "First bathroom"
+    },
+    {
+      "id": "bath2",
+      "categoryId": "bath",
+      "name": "Bathroom 2",
+      "desc": "Second bathroom"
+    },
+    {
+      "id": "bath3",
+      "categoryId": "bath",
+      "name": "Bathroom 3",
+      "desc": "Third bathroom"
+    },
+    {
+      "id": "bath4",
+      "categoryId": "bath",
+      "name": "Bathroom 4",
+      "desc": "Fourth bathroom"
     }
   ],
   "categories": [
     {
       "id": "ent",
       "name": "Entrance"
+    },
+    {
+      "id": "bath",
+      "name": "Bathroom"
+    },
+    {
+      "id": "lab",
+      "name": "Lab"
+    },
+    {
+      "id": "other",
+      "name": "Others"
     }
   ]
+  
 }

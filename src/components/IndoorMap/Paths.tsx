@@ -1,14 +1,22 @@
+import { useContext } from "react";
 import { graphData } from "@/store/graphData";
+import { graphDataF2 } from "@/store/graphDataF2";
+import { NavigationContext } from "@/pages/Map";
+import { NavigationContextType } from "@/utils/types";
+import overlayTransforms from "@/config/overlayTransforms";
 
 function Paths() {
+  const { currentFloor } = useContext(NavigationContext) as NavigationContextType;
+  const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
+  const t = overlayTransforms[(currentFloor as "F1" | "F2") || "F1"];
   return (
-    <g id="Edges">
-      {graphData.edges.map((edge) => {
+    <g id="Edges" transform={`translate(${t.translateX} ${t.translateY}) scale(${t.scaleX} ${t.scaleY})`}>
+      {currentGraphData.edges.map((edge) => {
         const { id, from, to } = edge;
-        const fromVertex = graphData.vertices.find(
+        const fromVertex = currentGraphData.vertices.find(
           (vertex) => vertex.id === from
         );
-        const toVertex = graphData.vertices.find((vertex) => vertex.id === to);
+        const toVertex = currentGraphData.vertices.find((vertex) => vertex.id === to);
         if (fromVertex && toVertex) {
           const pathClassName = "path";
           const pathD = `M${fromVertex.cx} ${fromVertex.cy}L${toVertex.cx} ${toVertex.cy}`;
