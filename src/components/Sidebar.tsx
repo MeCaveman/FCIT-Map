@@ -1,6 +1,6 @@
 import logo from "../assets/img/fcit-logo.svg";
 import { FiChevronRight } from "react-icons/fi";
-import { useContext, useEffect, useMemo, useState } from "react";
+//import { useContext, useEffect, useMemo, useState } from "react";
 import {
   MapDataContextType,
   NavigationContextType,

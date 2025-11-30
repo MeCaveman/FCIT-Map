@@ -1,11 +1,11 @@
 import Tooltip from "@/components/ui/Tooltip";
 import {
-  navigateToObject,
+  //navigateToObject,
   navigateWithDelay as navigationTestAll,
-  findNearestObjectByCategory,
+  //findNearestObjectByCategory,
 } from "@/utils/navigationHelper";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FiCircle, FiNavigation } from "react-icons/fi";
+//import { FiCircle, FiNavigation } from "react-icons/fi";
 import { useOnClickOutside } from "usehooks-ts";
 import { MapDataContext, NavigationContext, WhereAreYouModalContext } from "../pages/Map";
 import {
@@ -195,10 +195,10 @@ function SearchBar() {
     event.currentTarget.select();
   }
 
-  function handleInputBlur() {
+  /*function handleInputBlur() {
     setIsAutocomplete(false);
     setSelectedIndex(-1);
-  }
+  }*/
 
   function handleSearch(inputValue: string) {
     const trimmed = inputValue.trim().toLowerCase();
