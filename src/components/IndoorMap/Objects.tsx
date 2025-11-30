@@ -1,28 +1,39 @@
+import { useContext, useMemo } from "react";
+import { NavigationContext } from "@/pages/Map";
+import { NavigationContextType } from "@/utils/types";
+import { clickables } from "@/data/clickables";
+import roomsCatalog from "@/data/roomsCatalog";
+
 interface ObjectsProps {
   handleObjectClick: (e: React.MouseEvent<SVGPathElement>) => void;
   className?: string;
 }
+
 function Objects({ handleObjectClick, className }: ObjectsProps) {
+  const { currentFloor } = useContext(NavigationContext) as NavigationContextType;
+
+  const shapes = useMemo(() => {
+    return clickables
+      .map((g) => {
+        const room = roomsCatalog.find((r) => r.id === g.roomId);
+        if (!room) return null;
+        return { ...g, room };
+      })
+      .filter((x): x is { roomId: string; d: string; room: typeof roomsCatalog[number] } => !!x)
+      .filter((x) => x.room.floor === currentFloor);
+  }, [currentFloor]);
+
   return (
     <g id="Objects">
-      <path
-        id="Entrance 1"
-        className={`${className} object`}
-        d="M 584.383 1112.367 L 630.125 1052.181 L 699.941 1052.983 C 699.941 1052.983 740.065 1109.157 740.065 1110.762 C 740.065 1112.367 585.988 1110.762 584.383 1112.367 Z"
-        onClick={handleObjectClick}
-      />
-      <path
-        id="Entrance 2"
-        className={`${className} object`}
-        d="M 358.883 404.572 H 543.456 V 566.675 H 358.883 V 404.572 Z"
-        onClick={handleObjectClick}
-      />
-      <path
-        id="Entrance 3"
-        className={`${className} object`}
-        d="M 784.202 405.374 H 967.972 V 563.464 H 784.202 V 405.374 Z"
-        onClick={handleObjectClick}
-      />
+      {shapes.map((c) => (
+        <path
+          key={c.roomId}
+          id={c.room.name}
+          className={`${className} object`}
+          d={c.d}
+          onClick={handleObjectClick}
+        />
+      ))}
     </g>
   );
 }
