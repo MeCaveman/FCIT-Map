@@ -424,13 +424,17 @@
     <path d="M 784.202 405.374 H 967.972 V 563.464 H 784.202 V 405.374 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
     <path d="M 358.883 404.572 H 543.456 V 566.675 H 358.883 V 404.572 Z" style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);"/>
     <path style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" d="M 584.383 1112.367 L 630.125 1052.181 L 699.941 1052.983 C 699.941 1052.983 740.065 1109.157 740.065 1110.762 C 740.065 1112.367 585.988 1110.762 584.383 1112.367 Z"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1048.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1048.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1058.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1068.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1078.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1088.81" rx="5.072" ry="5.072"/>
-    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="723.149" cy="1098.81" rx="5.072" ry="5.072"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="449.966" cy="480.407" rx="4.414" ry="4.414"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="662.224" cy="472.784" rx="4.815" ry="4.815"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="874.482" cy="472.382" rx="4.414" ry="4.414"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="662.927" cy="1033.48" rx="4.631" ry="4.631"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="514.729" cy="921.008" rx="4.631" ry="4.631"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="813.771" cy="922.331" rx="4.631" ry="4.631"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="664.911" cy="944.164" rx="5.293" ry="5.293"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="666.235" cy="888.59" rx="6.616" ry="6.616"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="665.573" cy="918.362" rx="4.631" ry="4.631"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="666.896" cy="754.285" rx="5.954" ry="5.954"/>
+    <ellipse style="fill: rgb(216, 216, 216); stroke: rgb(0, 0, 0);" cx="666.235" cy="577.639" rx="5.293" ry="5.293"/>
   </g>
   <text style="fill: rgb(51, 51, 51); font-family: Arial, sans-serif; font-size: 14px; white-space: pre; stroke-width: 1;" x="629.658" y="406.948">Main Hall</text>
 </svg>
