@@ -1,6 +1,6 @@
 import logo from "../assets/img/fcit-logo.svg";
 import { FiChevronRight } from "react-icons/fi";
-import { useContext,/* useMemo, */useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import {
   MapDataContextType,
   NavigationContextType,
@@ -28,7 +28,7 @@ function Sidebar() {
     });
     // Sort each group alphabetically by name
     (Object.keys(grouped) as FloorKey[]).forEach((k) => {
-      grouped[k] = grouped[k].slice().sort((a, b) => a.name.localeCompare(b.name));
+      grouped[k] = grouped[k].slice().sort((a: ObjectItem, b: ObjectItem) => a.name.localeCompare(b.name));
     });
     return grouped;
   }, [objects]);
@@ -78,7 +78,7 @@ function Sidebar() {
                 </h2>
               </header>
               <div className="flex flex-col">
-                {objectsByFloor[floor].map((item) => (
+                {objectsByFloor[floor].map((item: ObjectItem) => (
                   <div
                     key={item.id?.toString()}
                     data-product={item.name}
