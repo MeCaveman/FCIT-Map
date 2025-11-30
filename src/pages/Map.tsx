@@ -12,6 +12,7 @@ import {
 } from "../utils/types";
 import Sidebar from "@/components/Sidebar";
 import WhereAreYouModal from "@/components/Modals/WhereAreYouModal";
+import Loading from "./Loading";
 
 export const NavigationContext = createContext<NavigationContextType | null>(
   null
@@ -56,6 +57,11 @@ function Map() {
   }, [navigation.start]);
 
   const mapData = useMapData();
+  
+  if (mapData.isLoading) {
+    return <Loading />;
+  }
+
   return (
     <MapDataContext.Provider value={mapData}>
       <NavigationContext.Provider value={navigationValue}>
