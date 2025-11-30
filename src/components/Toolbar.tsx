@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import { NavigationContext } from "@/pages/Map";
 import { NavigationContextType } from "@/utils/types";
 import { isDesktop } from "react-device-detect";
-import EditPositionButton from "./EditPositionButton";
 import DesktopRouteDetails from "./DesktopRouteDetails";
 import FloorSwitcher from "./FloorSwitcher";
 import SearchBar from "./SearchBar";
@@ -34,7 +33,6 @@ function Toolbar() {
           Home
         </button>
         <SearchBar />
-        <EditPositionButton />
         <FloorSwitcher />
         {navigation.end && isDesktop && <DesktopRouteDetails />}
       </div>
