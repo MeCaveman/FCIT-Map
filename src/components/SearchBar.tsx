@@ -346,7 +346,6 @@ function SearchBar() {
               onClick={() => handleSearch(inputValue)}
               aria-label="search"
             >
-              <FiNavigation />
             </button>
           </Tooltip>
         </div>
