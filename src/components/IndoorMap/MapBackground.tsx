@@ -1,4 +1,4 @@
-import entireF1 from "@/assets/img/EntireF1.svg";
+import boxySvg from "@/assets/img/BoxySvg.svg";
 import entireF2 from "@/assets/img/EntireF2.svg";
 import { ReactNode, useContext } from "react";
 import { NavigationContext } from "@/pages/Map";
@@ -16,7 +16,7 @@ function MapBackground({ children }: MapBackgroundProps) {
   
   // Map floor to corresponding SVG file and viewBox
   const floorConfigMap: Record<string, { svg: string; viewBox: string }> = {
-    F1: { svg: entireF1, viewBox: "0 0 7031 14536" },
+    F1: { svg: boxySvg, viewBox: "0 0 5063.04 10655.04" },
     F2: { svg: entireF2, viewBox: "0 0 4524.7432 6733.5117" },
   };
 

@@ -8,7 +8,10 @@
     "build": "tsc && NODE_ENV=production vite build --emptyOutDir",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "devnhost": "vite --host"
+    "devnhost": "vite --host",
+    "extract-rooms": "node extract_rooms.js",
+    "regenerate-edges": "node regenerate_edges.js",
+    "test-graph": "node test_visibility_graph.js"
   },
   "dependencies": {
     "@vercel/analytics": "^1.4.0",

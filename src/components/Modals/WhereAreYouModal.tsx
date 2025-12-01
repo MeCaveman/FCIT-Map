@@ -50,8 +50,8 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   }
 
   function handleSelectSuggestion(s: {label:string, roomId:string, name:string}) {
-    // Try to find a vertex that matches this room's name
-    const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === s.name?.toLowerCase());
+    // Try to find a vertex that matches this room's ID
+    const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === s.roomId?.toLowerCase());
     if (vertex) {
       setNavigation((prev) => ({ ...prev, start: vertex.id }));
       navigateToObject(targetObjectName, { ...navigation, start: vertex.id }, setNavigation);
@@ -59,13 +59,17 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
       return;
     }
     // If no vertex mapping exists yet, show a message
-    toast.error(`"${s.name}" is not yet mapped to a location on the map. Please assign it to a vertex first.`);
+    toast.error(`"${s.roomId}" is not yet mapped to a location on the map. Please assign it to a vertex first.`);
   }
 
   function handleConfirm() {
     const q = query?.trim();
     if (!q) {
-      // If no input, use current position and navigate
+      // If no input, use current position (navigation.start) and navigate
+      if (!navigation.start) {
+        toast.error("No starting position set. Please enter your location.");
+        return;
+      }
       navigateToObject(targetObjectName, navigation, setNavigation);
       clearAndClose();
       return;
@@ -74,12 +78,13 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
     // Try to find room by ID or name in roomsCatalog
     const room = roomsCatalog.find((r) => 
       r.id.toLowerCase() === q.toLowerCase() || 
-      r.name.toLowerCase() === q.toLowerCase()
+      r.name.toLowerCase() === q.toLowerCase() ||
+      r.name.toLowerCase().includes(q.toLowerCase())
     );
     
     if (room) {
-      // Try to find a vertex that matches this room's name
-      const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === room.name.toLowerCase());
+      // Try to find a vertex that matches this room's ID
+      const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === room.id.toLowerCase());
       if (vertex) {
         setNavigation((prev) => ({ ...prev, start: vertex.id }));
         navigateToObject(targetObjectName, { ...navigation, start: vertex.id }, setNavigation);
@@ -87,7 +92,7 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
         return;
       }
       // If no vertex mapping exists yet, show a message
-      toast.error(`"${room.name}" is not yet mapped to a location on the map. Please assign it to a vertex first.`);
+      toast.error(`"${room.id}" is not yet mapped to a location on the map. Please assign it to a vertex first.`);
       return;
     }
 

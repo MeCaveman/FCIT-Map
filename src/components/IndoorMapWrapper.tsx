@@ -18,10 +18,13 @@ import { toast } from "react-toastify";
 
 // Quick dev toggle to log SVG coordinates on click for alignment debugging
 const DEV_LOG_COORDS = false;
+// Debug mode to show all vertices with labels and click feedback
+const DEBUG_VERTICES = true;
 
 function IndoorMapWrapper() {
   const [modalOpen, setModalOpen] = useState(false);
   const [object, setObject] = useState<ObjectItem>({} as ObjectItem);
+  const [clickedVertex, setClickedVertex] = useState<string | null>(null);
   const transformRef = useRef<any>(null);
   const positionRadius = isMobile ? 80 : 60;
   const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor } = useContext(
@@ -63,8 +66,15 @@ function IndoorMapWrapper() {
     }
   }
   const handlePositionClick = (e: React.MouseEvent<SVGPathElement>) => {
+    const vertexId = (e.target as HTMLElement).id;
+    
+    if (DEBUG_VERTICES) {
+      setClickedVertex(vertexId);
+      // Clear the message after 3 seconds
+      setTimeout(() => setClickedVertex(null), 3000);
+    }
+    
     if (isEditMode) {
-      const vertexId = (e.target as HTMLElement).id;
       setNavigation({ start: vertexId });
       setIsEditMode(false);
     }
@@ -85,6 +95,11 @@ function IndoorMapWrapper() {
       {DEV_LOG_COORDS && (
         <div className="absolute top-2 left-2 z-20 bg-white/80 rounded px-2 py-1 text-xs text-gray-700">
           Click the map to log SVG coords in console
+        </div>
+      )}
+      {DEBUG_VERTICES && clickedVertex && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white rounded-lg px-6 py-3 text-lg font-bold shadow-lg">
+          Clicked vertex: {clickedVertex}
         </div>
       )}
       <ObjectDetailsModal
@@ -128,9 +143,12 @@ function IndoorMapWrapper() {
               className={
                 isEditMode
                   ? "opacity-100 cursor-pointer hover:fill-[#488af4] "
+                  : DEBUG_VERTICES
+                  ? "opacity-100 cursor-pointer hover:fill-[#488af4]"
                   : "opacity-0"
               }
               navigation={navigation}
+              debugMode={DEBUG_VERTICES}
             />
           </MapBackground>
         </TransformComponent>

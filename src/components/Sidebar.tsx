@@ -9,6 +9,8 @@ import {
 import { MapDataContext, NavigationContext } from "../pages/Map";
 
 import { navigateToObject } from "@/utils/navigationHelper";
+import { graphData } from "@/store/graphData";
+import roomsCatalog from "@/data/roomsCatalog";
 
 type FloorKey = "F1" | "F2" | "Other";
 
@@ -18,10 +20,22 @@ function Sidebar() {
   ) as NavigationContextType;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [isRotating, setIsRotating] = useState(false);
+   
+  // Filter to only show navigatable rooms (those mapped to vertices)
+  const navigatableObjects = objects.filter((o) => {
+   // Find room in catalog
+   const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
+   if (!room) return false;
+    
+   // Check if this room ID is mapped to a vertex
+   const hasVertex = graphData.vertices.some((v) => v.objectName === room.id);
+   return hasVertex;
+  });
+
 
   const objectsByFloor = useMemo(() => {
     const grouped: Record<FloorKey, ObjectItem[]> = { F1: [], F2: [], Other: [] };
-    objects.forEach((o) => {
+    navigatableObjects.forEach((o) => {
       if (o.floor === "F1") grouped.F1.push(o);
       else if (o.floor === "F2") grouped.F2.push(o);
       else grouped.Other.push(o);

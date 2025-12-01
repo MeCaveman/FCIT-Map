@@ -9,13 +9,11 @@ import roomsCatalog from "@/data/roomsCatalog";
 function useMapData() {
   const [objects, setObjects] = useState<ObjectItem[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const context = useContext(NavigationContext) as NavigationContextType;
   const currentFloor = context?.currentFloor || "F1";
 
   const fetchData = async () => {
     try {
-      setIsLoading(true);
       const categoriesData = await getCategories();
       // Build objects purely from the central rooms catalog so it's the single source of truth
       const objectsFromCatalog: ObjectItem[] = roomsCatalog.map((r) => ({
@@ -37,8 +35,6 @@ function useMapData() {
       setCategories(categoriesData);
     } catch (error) {
       console.error("Error fetching data:", error);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -46,7 +42,7 @@ function useMapData() {
     fetchData();
   }, [currentFloor]);
 
-  return { objects, categories, isLoading, refetchData: fetchData };
+  return { objects, categories, refetchData: fetchData };
 }
 
 export default useMapData;
