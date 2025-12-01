@@ -27,8 +27,14 @@ function Sidebar() {
    const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
    if (!room) return false;
     
-   // Check if this room ID is mapped to a vertex
-   const hasVertex = graphData.vertices.some((v) => v.objectName === room.id);
+   // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
+   const hasVertex =
+     graphData.vertices.some(
+       (v) => v.objectName === room.id || v.objectName === room.name
+     ) ||
+     (room.vertexId
+       ? graphData.vertices.some((v) => v.id === room.vertexId)
+       : false);
    return hasVertex;
   });
 

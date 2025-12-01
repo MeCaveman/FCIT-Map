@@ -8,6 +8,7 @@ export interface RoomRecord {
   floor: FloorId; // "F1" | "F2"
   categoryId: string; // maps to categories
   desc?: string;
+  vertexId?: string; // optional direct vertex mapping for navigation
 }
 
 export const roomsCatalog: RoomRecord[] = [
@@ -41,7 +42,7 @@ export const roomsCatalog: RoomRecord[] = [
 
 { id: "15FS04-A", name: "Stair - 15FS04-A", floor: "F1", categoryId: "Other", desc: "Staircase" },
 { id: "15FS04-B", name: "Stair - 15FS04-B", floor: "F1", categoryId: "Other", desc: "Staircase" },
-{ id: "Ent1", name: "Entrance 1 - Ent1", floor: "F1", categoryId: "Other", desc: "Entrance" },
+{ id: "Ent1", name: "Entrance 1 - Ent1", floor: "F1", categoryId: "Other", desc: "Entrance", vertexId: "v1" },
 
   // F1 generated from CSV (blank IDs filled with unique auto IDs)
   // Category mapping: Facility->Office (except Toilets->Bathroom), Others->Other

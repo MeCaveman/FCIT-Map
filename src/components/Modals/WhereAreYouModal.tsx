@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { Dialog, DialogBody, DialogHeader, DialogFooter } from "../ui/Dialog";
 import { NavigationContext } from "@/pages/Map";
 import { NavigationContextType } from "@/utils/types";
-import roomsCatalog from "@/data/roomsCatalog";
+import roomsCatalog, { RoomRecord } from "@/data/roomsCatalog";
 import { graphData } from "@/store/graphData";
 import { toast } from "react-toastify";
 import { navigateToObject } from "@/utils/navigationHelper";
@@ -17,6 +17,18 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   const [query, setQuery] = useState("");
   const [suggestions, setSuggestions] = useState<Array<{label:string, roomId:string, name:string}>>([]);
   const { navigation, setNavigation } = useContext(NavigationContext) as NavigationContextType;
+
+  const findVertexForRoom = (room: RoomRecord) => {
+    const normalizedId = room.id.toLowerCase();
+    const normalizedName = room.name.toLowerCase();
+    return (
+      graphData.vertices.find((v) => v.objectName?.toLowerCase() === normalizedId) ||
+      graphData.vertices.find((v) => v.objectName?.toLowerCase() === normalizedName) ||
+      (room.vertexId
+        ? graphData.vertices.find((v) => v.id.toLowerCase() === room.vertexId.toLowerCase())
+        : undefined)
+    );
+  };
 
   function buildSuggestions(q: string) {
     if (!q || q.trim().length === 0) {
@@ -50,8 +62,12 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   }
 
   function handleSelectSuggestion(s: {label:string, roomId:string, name:string}) {
-    // Try to find a vertex that matches this room's ID
-    const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === s.roomId?.toLowerCase());
+    const room = roomsCatalog.find((r) => r.id === s.roomId);
+    if (!room) {
+      toast.error(`"${s.roomId}" was removed from the catalog.`);
+      return;
+    }
+    const vertex = findVertexForRoom(room);
     if (vertex) {
       setNavigation((prev) => ({ ...prev, start: vertex.id }));
       navigateToObject(targetObjectName, { ...navigation, start: vertex.id }, setNavigation);
@@ -83,8 +99,7 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
     );
     
     if (room) {
-      // Try to find a vertex that matches this room's ID
-      const vertex = graphData.vertices.find((v) => v.objectName?.toLowerCase() === room.id.toLowerCase());
+      const vertex = findVertexForRoom(room);
       if (vertex) {
         setNavigation((prev) => ({ ...prev, start: vertex.id }));
         navigateToObject(targetObjectName, { ...navigation, start: vertex.id }, setNavigation);
