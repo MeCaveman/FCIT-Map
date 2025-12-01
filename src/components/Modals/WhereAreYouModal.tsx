@@ -126,7 +126,7 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
           <img 
             src={whereAreYouSvg} 
             alt="Where are you?" 
-            className="w-32 h-32 md:w-40 md:h-40 object-contain"
+            className="w-64 h-64 md:w-80 md:h-80 object-contain"
           />
         </div>
         <p className="mb-2 text-gray-700 text-sm text-center">
