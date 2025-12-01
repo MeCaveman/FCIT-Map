@@ -68,11 +68,11 @@ function Map() {
       <NavigationContext.Provider value={navigationValue}>
         <WhereAreYouModalContext.Provider value={{ modalState, setModalState }}>
           <SidebarProvider defaultOpen={isDesktop}>
-            <div className="flex bg-gray-100 text-gray-800 relative overflow-hidden w-full h-screen">
+            <div className={`flex text-gray-800 relative overflow-hidden w-full h-screen ${isDesktop ? 'bg-gray-100' : 'bg-white'}`}>
               {isDesktop && <Sidebar />}
-              <SidebarInset className="flex flex-col">
+              <SidebarInset className="flex flex-col w-full h-full overflow-hidden bg-white">
                 <Toolbar />
-                <div className="center w-full h-full flex-1 md:p-10 p-2">
+                <div className="center w-full h-full flex-1 md:p-10 p-0">
                   <IndoorMapWrapper />
                 </div>
               </SidebarInset>

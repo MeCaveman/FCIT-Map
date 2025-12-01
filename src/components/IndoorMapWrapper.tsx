@@ -89,7 +89,7 @@ function IndoorMapWrapper() {
     }
   }
   return (
-    <div className="relative w-full h-full bg-white center">
+    <div className="relative w-full h-full bg-white center overflow-hidden">
       {DEV_LOG_COORDS && (
         <div className="absolute top-2 left-2 z-20 bg-white/80 rounded px-2 py-1 text-xs text-gray-700">
           Click the map to log SVG coords in console
