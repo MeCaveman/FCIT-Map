@@ -1,4 +1,4 @@
-import { VertexData, graphData } from "@/store/graphData";
+import { VertexData } from "@/store/graphData";
 import { extractWallSegments } from "./visibilityGraph";
 
 interface Point {
@@ -153,8 +153,6 @@ function createManhattanPathWithAvoidance(
   walls: LineSegment[],
   vertices: VertexData[]
 ): Point[] {
-  const points: Point[] = [from];
-
   // Try horizontal-first path
   const horizontalFirst: Point[] = [
     from,
