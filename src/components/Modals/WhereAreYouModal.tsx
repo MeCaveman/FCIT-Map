@@ -6,6 +6,7 @@ import roomsCatalog, { RoomRecord } from "@/data/roomsCatalog";
 import { graphData } from "@/store/graphData";
 import { toast } from "react-toastify";
 import { navigateToObject } from "@/utils/navigationHelper";
+import whereAreYouSvg from "@/assets/img/whereAreYou.svg";
 
 interface WhereAreYouModalProps {
   open: boolean;
@@ -121,7 +122,14 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
         <p>Where are you now?</p>
       </DialogHeader>
       <DialogBody>
-        <p className="mb-2 text-gray-700 text-sm">
+        <div className="flex justify-center mb-4">
+          <img 
+            src={whereAreYouSvg} 
+            alt="Where are you?" 
+            className="w-32 h-32 md:w-40 md:h-40 object-contain"
+          />
+        </div>
+        <p className="mb-2 text-gray-700 text-sm text-center">
           Enter the room ID or name where you are currently located — suggestions will appear as you type.
         </p>
         <div className="mb-2">

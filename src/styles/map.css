@@ -4,6 +4,7 @@
   --object-oppacity-hover: 0.2;
   --position-color: rgba(129, 129, 129, 0.557);
   --path-color: #0f766e;
+  --navigation-path-color: #06b6d4;
 }
 
 .object {
@@ -41,11 +42,14 @@
 
 .path-once {
   opacity: 1;
-  stroke-width: 4;
+  stroke-width: 16;
   stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke: var(--navigation-path-color);
   stroke-dasharray: 2338.5;
   stroke-dashoffset: 2338.5;
   animation: dash2 2s linear forwards;
+  filter: drop-shadow(0 0 4px rgba(6, 182, 212, 0.5));
 }
 
 @keyframes dash2 {
@@ -56,11 +60,23 @@
 
 .path-active {
   opacity: 1;
-  stroke-width: 4;
+  stroke-width: 16;
   stroke-linecap: round;
   stroke-linejoin: round;
+  stroke: var(--navigation-path-color);
   stroke-dasharray: 10;
   animation: march 3s linear infinite reverse;
+  filter: drop-shadow(0 0 6px rgba(6, 182, 212, 0.6));
+}
+
+.navigation-route.path-active {
+  stroke-width: 20;
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8));
+}
+
+.navigation-route.path-once {
+  stroke-width: 20;
+  filter: drop-shadow(0 0 8px rgba(6, 182, 212, 0.8));
 }
 
 @keyframes march {

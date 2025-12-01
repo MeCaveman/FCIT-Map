@@ -16,6 +16,7 @@ export function useRouteDetails() {
   const [routeDetails, setRouteDetails] = useState({
     routeLength: 0,
     walkingTime: 0,
+    walkingTimeFormatted: "0 sec",
     rightRouteLength: 0,
   });
 
@@ -38,12 +39,35 @@ export function useRouteDetails() {
         "navigation-route"
       ) as SVGPathElement | null;
       const routeLength = navigationRoutePath?.getTotalLength() || 0;
-      const mapRatio = 20; // fictional ratio
-      const walkingSpeed = 1.4; // m/s
-      const rightRouteLength = Math.round((routeLength / mapRatio) * 10) / 10;
-      const walkingTime = Math.round(rightRouteLength / walkingSpeed);
+      
+      // Conversion: 1 SVG point = 0.95 cm = 0.0095 m
+      const POINTS_TO_METERS = 0.0095; // 0.95 cm per point
+      const WALKING_SPEED = 1.4; // m/s (average walking speed)
+      
+      // Convert SVG path length (in points) to real-world distance (in meters)
+      const rightRouteLength = Math.round((routeLength * POINTS_TO_METERS) * 10) / 10;
+      
+      // Calculate walking time in seconds using average walking speed (1.4 m/s)
+      const walkingTimeSeconds = Math.round(rightRouteLength / WALKING_SPEED);
+      
+      // Format time as "X min Y sec" or "X sec"
+      let walkingTimeFormatted: string;
+      if (walkingTimeSeconds >= 60) {
+        const minutes = Math.floor(walkingTimeSeconds / 60);
+        const seconds = walkingTimeSeconds % 60;
+        walkingTimeFormatted = seconds > 0 
+          ? `${minutes} min ${seconds} sec`
+          : `${minutes} min`;
+      } else {
+        walkingTimeFormatted = `${walkingTimeSeconds} sec`;
+      }
 
-      setRouteDetails({ routeLength, walkingTime, rightRouteLength });
+      setRouteDetails({ 
+        routeLength, 
+        walkingTime: walkingTimeSeconds, 
+        walkingTimeFormatted,
+        rightRouteLength 
+      });
     };
 
     fetchObject();
