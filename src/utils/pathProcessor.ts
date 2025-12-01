@@ -601,8 +601,6 @@ function createPerimeterPath(
 ): Point[] {
   // Try going around by moving to a safe distance from walls
   // Move horizontally first, then vertically, checking for wall intersections
-  const safeDistance = 100; // Safe distance from walls
-
   // Try horizontal-first with offset
   const h1: Point = { x: to.x, y: from.y };
   const h1Path = createManhattanPath(from, h1);
