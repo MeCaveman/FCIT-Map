@@ -10,6 +10,7 @@ import { MapDataContext, NavigationContext } from "../pages/Map";
 
 import { navigateToObject } from "@/utils/navigationHelper";
 import { graphData } from "@/store/graphData";
+import { graphDataF2 } from "@/store/graphDataF2";
 import roomsCatalog from "@/data/roomsCatalog";
 import {
   Sidebar as SidebarPrimitive,
@@ -27,29 +28,34 @@ import {
 type FloorKey = "F1" | "F2" | "Other";
 
 function Sidebar() {
-  const { navigation, setNavigation, setIsEditMode } = useContext(
+  const { navigation, setNavigation, setIsEditMode, currentFloor, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [searchQuery, setSearchQuery] = useState("");
   const [isRotating, setIsRotating] = useState(false);
    
-  // Filter to only show navigatable rooms (those mapped to vertices)
-  const navigatableObjects = objects.filter((o) => {
-   // Find room in catalog
-   const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
-   if (!room) return false;
-    
-   // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
-   const hasVertex =
-     graphData.vertices.some(
-       (v) => v.objectName === room.id || v.objectName === room.name
-     ) ||
-     (room.vertexId
-       ? graphData.vertices.some((v) => v.id === room.vertexId)
-       : false);
-   return hasVertex;
-  });
+  // Filter to only show rooms that are mapped to vertices
+  const navigatableObjects = useMemo(() => {
+    return objects.filter((o) => {
+      // Find room in catalog
+      const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
+      if (!room) return false;
+      
+      // Select the appropriate graph data based on room floor
+      const currentGraphData = room.floor === "F2" ? graphDataF2 : graphData;
+      
+      // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
+      const hasVertex =
+        currentGraphData.vertices.some(
+          (v) => v.objectName === room.id || v.objectName === room.name
+        ) ||
+        (room.vertexId
+          ? currentGraphData.vertices.some((v) => v.id === room.vertexId)
+          : false);
+      return hasVertex;
+    });
+  }, [objects]);
 
   // Filter objects by search query
   const filteredObjects = useMemo(() => {
@@ -80,7 +86,17 @@ function Sidebar() {
     const object = objects.find((obj) => obj.name === selectedObjectName);
     setIsEditMode(false);
     if (!object) return;
-    navigateToObject(object.name, navigation, setNavigation);
+    
+    // Switch floor if the selected room is on a different floor
+    if (object.floor && object.floor !== currentFloor) {
+      setCurrentFloor(object.floor);
+      // Wait a bit for the floor to switch before navigating
+      setTimeout(() => {
+        navigateToObject(object.name, navigation, setNavigation);
+      }, 100);
+    } else {
+      navigateToObject(object.name, navigation, setNavigation);
+    }
   }
 
   const floorOrder: FloorKey[] = ["F1", "F2", "Other"];
