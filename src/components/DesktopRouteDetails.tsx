@@ -3,7 +3,7 @@ import { FaX } from "react-icons/fa6";
 import { TbRoute } from "react-icons/tb";
 
 function DesktopRouteDetails() {
-  const { object, rightRouteLength, walkingTime, handleLeave } =
+  const { object, rightRouteLength, walkingTimeFormatted, handleLeave } =
     useRouteDetails();
 
   return (
@@ -17,7 +17,7 @@ function DesktopRouteDetails() {
         </div>
         <div className="flex flex-col h-full justify-center px-4">
           <p className="text-gray-500 text-xs">
-            {rightRouteLength} m, {walkingTime} sek
+            {rightRouteLength} m, {walkingTimeFormatted}
           </p>
         </div>
         <div className="h-12 w-12 center flex-none rounded-r bg-white text-teal-700 text-xs">
