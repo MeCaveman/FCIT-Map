@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/img/fcit-logo.svg";
+import logo from "../assets/img/FCITMapLogo.svg";
 import {
   FaMapMarkerAlt,
   FaInfoCircle,

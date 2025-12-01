@@ -37,7 +37,7 @@ function Toolbar() {
         {navigation.end && isDesktop && <DesktopRouteDetails />}
       </div>
       {floorToast && (
-        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-sm font-medium rounded-lg px-6 py-3 shadow-lg z-[9999]">
+        <div className="fixed bottom-8 left-1/2 -translate-x-1/2 bg-teal-700 text-white text-sm font-medium rounded-lg px-6 py-3 shadow-lg z-[9999]">
           {floorToast}
         </div>
       )}

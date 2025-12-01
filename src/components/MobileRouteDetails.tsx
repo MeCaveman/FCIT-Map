@@ -6,7 +6,7 @@ function MobileRouteDetails() {
   const { object, rightRouteLength, walkingTime, handleLeave } =
     useRouteDetails();
   return (
-    <div className="absolute navigation-info-pulse bottom-0 left-0 right-0 mx-auto w-full bg-white border-t border-blue-300 shadow-lg rounded-t-lg overflow-hidden">
+    <div className="absolute navigation-info-pulse bottom-0 left-0 right-0 mx-auto w-full bg-white border-t border-teal-300 shadow-lg rounded-t-lg overflow-hidden">
       <button className="absolute right-2 top-2" onClick={handleLeave}>
         <FaX className="text-gray-400" />
       </button>

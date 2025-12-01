@@ -160,7 +160,7 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
         >
           Cancel
         </button>
-        <button className="bg-blue-500 text-white px-4 py-2 rounded" onClick={handleConfirm}>
+        <button className="bg-teal-700 text-white px-4 py-2 rounded" onClick={handleConfirm}>
           Confirm
         </button>
       </DialogFooter>

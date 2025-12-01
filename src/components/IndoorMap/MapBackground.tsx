@@ -39,6 +39,7 @@ function MapBackground({ children }: MapBackgroundProps) {
 
   return (
     <svg
+      key={currentFloor}
       viewBox={floorConfig.viewBox}
       preserveAspectRatio="xMidYMid meet"
       className="lg:h-[85vh] lg:w-[75vw] h-[85dvh] w-auto"

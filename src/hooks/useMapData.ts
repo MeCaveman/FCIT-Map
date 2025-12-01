@@ -24,6 +24,7 @@ function useMapData() {
         desc: r.desc || "",
         categoryId: r.categoryId,
         floor: r.floor,
+        vertexId: r.vertexId,
       }));
 
       // Optional: filter by current floor in the future

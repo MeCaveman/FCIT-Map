@@ -13,6 +13,7 @@ export const overlayTransforms: Record<FloorId, OverlayTransform> = {
   // BoxySvg.svg uses native SVG coordinates - no scaling needed
   // Vertices are positioned directly in the SVG coordinate space
   F1: { scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 },
+  // EntireF2.svg clickables use native SVG coordinates - no scaling needed
   F2: { scaleX: 1, scaleY: 1, translateX: 0, translateY: 0 },
 };
 

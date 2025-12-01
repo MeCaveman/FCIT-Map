@@ -61,12 +61,12 @@ function Positions({
             <text
               x={vertex.cx}
               y={vertex.cy - scaledRadius - 5}
-              fontSize={12 / t.scaleX}
+              fontSize={120 / t.scaleX}
               fill="#000"
               textAnchor="middle"
               pointerEvents="none"
               className="select-none font-mono font-bold"
-              style={{ textShadow: "0 0 3px white, 0 0 3px white" }}
+              style={{ textShadow: "0 0 5px white, 0 0 5px white, 0 0 5px white" }}
             >
               {vertex.id}
             </text>

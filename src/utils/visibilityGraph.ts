@@ -256,29 +256,8 @@ export function generateVisibilityGraph(
  */
 export function generateSmartVisibilityGraph(vertices: VertexData[]): EdgeData[] {
   // Calculate average nearest neighbor distance
-  let totalNearestDist = 0;
-  vertices.forEach((v1) => {
-    let minDist = Infinity;
-    vertices.forEach((v2) => {
-      if (v1.id !== v2.id) {
-        const dist = calculateDistance(
-          { x: v1.cx, y: v1.cy },
-          { x: v2.cx, y: v2.cy }
-        );
-        minDist = Math.min(minDist, dist);
-      }
-    });
-    totalNearestDist += minDist;
-  });
-
-  const avgNearestDist = totalNearestDist / vertices.length;
-  // Set max distance to 3x the average nearest neighbor distance
-  // This creates a good balance between connectivity and avoiding excessive long edges
-  const maxDistance = avgNearestDist * 3;
-
-  console.log(`📊 Smart threshold: ${Math.round(maxDistance)} units (avg nearest: ${Math.round(avgNearestDist)})`);
-
-  return generateVisibilityGraph(vertices, maxDistance);
+    // Remove threshold: connect all vertices regardless of distance
+    return generateVisibilityGraph(vertices, Infinity);
 }
 
 /**

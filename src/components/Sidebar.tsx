@@ -1,4 +1,4 @@
-import logo from "../assets/img/fcit-logo.svg";
+import logo from "../assets/img/FCITMapLogo.svg";
 import { FiChevronRight } from "react-icons/fi";
 import { useContext, useMemo, useState } from "react";
 import {
@@ -112,7 +112,7 @@ function Sidebar() {
                         <p className="text-[10px] text-gray-500 mt-0.5">{item.floor === "F2" ? "Floor 2" : "Floor 1"}</p>
                       )}
                     </div>
-                    <div className="ml-auto h-auto text-xl text-blue-300 flex items-center">
+                    <div className="ml-auto h-auto text-xl text-teal-400 flex items-center">
                       <FiChevronRight />
                     </div>
                   </div>

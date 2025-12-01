@@ -13,10 +13,10 @@ function FloorSwitcher() {
   };
 
   return (
-    <Tooltip content={`Switch to ${currentFloor === "F1" ? "F2" : "F1"}`} className="bg-blue-500">
+    <Tooltip content={`Switch to ${currentFloor === "F1" ? "F2" : "F1"}`} className="bg-teal-700">
       <button
         onClick={toggleFloor}
-        className="h-12 w-12 flex items-center justify-center rounded-full bg-blue-500 text-white font-bold text-lg hover:bg-blue-600 transition-colors shadow-lg"
+        className="h-12 w-12 flex items-center justify-center rounded-full bg-teal-700 text-white font-bold text-lg hover:bg-teal-900 transition-colors shadow-lg"
         aria-label="switch floor"
       >
         {currentFloor}

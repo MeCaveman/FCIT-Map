@@ -19,10 +19,10 @@ import { toast } from "react-toastify";
 // Quick dev toggle to log SVG coordinates on click for alignment debugging
 const DEV_LOG_COORDS = false;
 // Debug mode to show all vertices with labels and click feedback
-const DEBUG_VERTICES = true;
+const DEBUG_VERTICES = false;
 const FLOOR_CENTERS: Record<string, { x: number; y: number }> = {
-  F1: { x: 2531.52, y: 5327.52 },
-  F2: { x: 2262.3716, y: 3366.75585 },
+  F1: { x: 3800.09, y: 10249.4 },
+  F2: { x: 4524.7432 / 2, y: 6733.5117 / 2 },
 };
 
 function IndoorMapWrapper() {
@@ -31,7 +31,7 @@ function IndoorMapWrapper() {
   const [clickedVertex, setClickedVertex] = useState<string | null>(null);
   const transformRef = useRef<any>(null);
   const positionRadius = isMobile ? 80 : 60;
-  const minZoomLevel = isMobile ? 2.5 : 2.0;
+  const minZoomLevel = isMobile ? 1.5 : 1.0;
   const defaultZoomLevel = isMobile ? 3 : 2.5;
   const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor } = useContext(
     NavigationContext
@@ -43,41 +43,16 @@ function IndoorMapWrapper() {
   // Get current user position and zoom to it
   useEffect(() => {
     if (transformRef.current && !isEditMode) {
-      const centerMapToFloor = () => {
-        const floorCenter = FLOOR_CENTERS[currentFloor] || FLOOR_CENTERS.F1;
-        transformRef.current?.setTransform(
-          -floorCenter.x * minZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
-          -floorCenter.y * minZoomLevel + window.innerHeight / 2,
-          minZoomLevel,
-          0
-        );
-      };
-
-      if (previousFloorRef.current !== currentFloor) {
-        centerMapToFloor();
-        previousFloorRef.current = currentFloor;
-        return;
-      }
-
-      const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
-      const userVertex = currentGraphData.vertices.find(
-        (v) => v.id === navigation.start
+      const floorCenter = FLOOR_CENTERS[currentFloor] || FLOOR_CENTERS.F1;
+      transformRef.current?.setTransform(
+        -floorCenter.x * minZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
+        -floorCenter.y * minZoomLevel + window.innerHeight / 2,
+        minZoomLevel,
+        0
       );
-
-      if (userVertex) {
-        // Center on user position with zoom level
-        transformRef.current.setTransform(
-          -userVertex.cx * defaultZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
-          -userVertex.cy * defaultZoomLevel + window.innerHeight / 2,
-          defaultZoomLevel,
-          0
-        );
-      } else {
-        // Fall back to floor center when user vertex isn't on this floor
-        centerMapToFloor();
-      }
+      previousFloorRef.current = currentFloor;
     }
-  }, [navigation.start, isEditMode, currentFloor]);
+  }, [currentFloor, isEditMode]);
   async function handleObjectClick(e: React.MouseEvent<SVGPathElement>) {
     if (!isEditMode) {
       const targetId = (e.target as HTMLElement).id;
@@ -123,7 +98,7 @@ function IndoorMapWrapper() {
         </div>
       )}
       {DEBUG_VERTICES && clickedVertex && (
-        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 bg-blue-600 text-white rounded-lg px-6 py-3 text-lg font-bold shadow-lg">
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 bg-teal-700 text-white rounded-lg px-6 py-3 text-lg font-bold shadow-lg">
           Clicked vertex: {clickedVertex}
         </div>
       )}
@@ -135,6 +110,7 @@ function IndoorMapWrapper() {
       />
 
       <TransformWrapper
+        key={currentFloor}
         ref={transformRef}
         centerOnInit
         minScale={minZoomLevel}
