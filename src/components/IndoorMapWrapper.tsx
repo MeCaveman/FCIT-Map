@@ -31,6 +31,8 @@ function IndoorMapWrapper() {
   const [clickedVertex, setClickedVertex] = useState<string | null>(null);
   const transformRef = useRef<any>(null);
   const positionRadius = isMobile ? 80 : 60;
+  const minZoomLevel = isMobile ? 2.5 : 2.0;
+  const defaultZoomLevel = isMobile ? 3 : 2.5;
   const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
@@ -41,13 +43,12 @@ function IndoorMapWrapper() {
   // Get current user position and zoom to it
   useEffect(() => {
     if (transformRef.current && !isEditMode) {
-      const zoomLevel = isMobile ? 3 : 2.5;
       const centerMapToFloor = () => {
         const floorCenter = FLOOR_CENTERS[currentFloor] || FLOOR_CENTERS.F1;
         transformRef.current?.setTransform(
-          -floorCenter.x * zoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
-          -floorCenter.y * zoomLevel + window.innerHeight / 2,
-          zoomLevel,
+          -floorCenter.x * minZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
+          -floorCenter.y * minZoomLevel + window.innerHeight / 2,
+          minZoomLevel,
           0
         );
       };
@@ -66,9 +67,9 @@ function IndoorMapWrapper() {
       if (userVertex) {
         // Center on user position with zoom level
         transformRef.current.setTransform(
-          -userVertex.cx * zoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
-          -userVertex.cy * zoomLevel + window.innerHeight / 2,
-          zoomLevel,
+          -userVertex.cx * defaultZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
+          -userVertex.cy * defaultZoomLevel + window.innerHeight / 2,
+          defaultZoomLevel,
           0
         );
       } else {
@@ -136,10 +137,10 @@ function IndoorMapWrapper() {
       <TransformWrapper
         ref={transformRef}
         centerOnInit
-        minScale={isMobile ? 2.5 : 2.0}
+        minScale={minZoomLevel}
         maxScale={isMobile ? 5 : 6}
         doubleClick={{ mode: "reset" }}
-        initialScale={isMobile ? 3 : 2.5}
+        initialScale={defaultZoomLevel}
         smooth={true}
         wheel={{ smoothStep: 0.01 }}
         limitToBounds={true}
