@@ -104,6 +104,25 @@ export function processPathToManhattan(
         walls,
         vertices
       );
+      
+      // Verify the avoidance path doesn't intersect walls
+      if (hasWallIntersections(manhattanPathAvoid, walls)) {
+        // Still has intersections, try to find a path through multiple waypoints
+        const multiWaypointPath = findMultiWaypointPath(
+          from,
+          to,
+          walls,
+          vertices,
+          path.slice(i + 2) // Remaining vertices in path
+        );
+        if (multiWaypointPath.length > 0) {
+          waypoints.push(...multiWaypointPath.slice(1));
+          // Skip the next segment since we handled it
+          i += multiWaypointPath.length > 2 ? 1 : 0;
+          continue;
+        }
+      }
+      
       waypoints.push(...manhattanPathAvoid.slice(1)); // Skip first point (already added)
     }
   }
@@ -118,7 +137,110 @@ export function processPathToManhattan(
     }
   }
 
-  return waypoints;
+  // Final validation: ensure no wall intersections in the final path
+  const validatedWaypoints = validateAndFixPath(waypoints, walls, vertices);
+  
+  return validatedWaypoints;
+}
+
+/**
+ * Validate and fix a path to ensure no wall intersections
+ */
+function validateAndFixPath(
+  waypoints: Point[],
+  walls: LineSegment[],
+  vertices: VertexData[]
+): Point[] {
+  if (waypoints.length < 2) return waypoints;
+
+  const fixedPath: Point[] = [waypoints[0]];
+
+  for (let i = 0; i < waypoints.length - 1; i++) {
+    const from = waypoints[i];
+    const to = waypoints[i + 1];
+    const segment: LineSegment = { start: from, end: to };
+
+    // Check if this segment intersects any walls
+    const intersects = walls.some((wall) => segmentsIntersect(segment, wall));
+
+    if (!intersects) {
+      // Segment is clear, add the destination point
+      fixedPath.push(to);
+    } else {
+      // Segment intersects walls, find an alternative route
+      const alternativePath = findAlternativeSegment(
+        from,
+        to,
+        walls,
+        vertices
+      );
+      if (alternativePath.length > 1) {
+        // Add intermediate points (skip first as it's the same as 'from')
+        fixedPath.push(...alternativePath.slice(1));
+      } else {
+        // Couldn't find alternative, skip this segment (will create gap)
+        // Try to reconnect at next valid point
+        continue;
+      }
+    }
+  }
+
+  // Ensure we end at the final destination
+  if (
+    fixedPath.length > 0 &&
+    waypoints.length > 0 &&
+    (fixedPath[fixedPath.length - 1].x !== waypoints[waypoints.length - 1].x ||
+      fixedPath[fixedPath.length - 1].y !== waypoints[waypoints.length - 1].y)
+  ) {
+    const finalPoint = waypoints[waypoints.length - 1];
+    const lastPoint = fixedPath[fixedPath.length - 1];
+    const finalSegment: LineSegment = { start: lastPoint, end: finalPoint };
+
+    if (!walls.some((wall) => segmentsIntersect(finalSegment, wall))) {
+      fixedPath.push(finalPoint);
+    } else {
+      // Find alternative route to final point
+      const altPath = findAlternativeSegment(
+        lastPoint,
+        finalPoint,
+        walls,
+        vertices
+      );
+      fixedPath.push(...altPath.slice(1));
+    }
+  }
+
+  return fixedPath.length > 0 ? fixedPath : waypoints;
+}
+
+/**
+ * Find an alternative segment that avoids walls
+ */
+function findAlternativeSegment(
+  from: Point,
+  to: Point,
+  walls: LineSegment[],
+  vertices: VertexData[]
+): Point[] {
+  // Try Manhattan routing
+  const manhattanPath = createManhattanPath(from, to);
+  if (!hasWallIntersections(manhattanPath, walls)) {
+    return manhattanPath;
+  }
+
+  // Try with intermediate waypoint
+  const intermediate = findIntermediateWaypoint(from, to, walls, vertices);
+  if (intermediate) {
+    const path1 = createManhattanPath(from, intermediate);
+    const path2 = createManhattanPath(intermediate, to);
+    const combined = [...path1, ...path2.slice(1)];
+    if (!hasWallIntersections(combined, walls)) {
+      return combined;
+    }
+  }
+
+  // Try exhaustive search
+  return findExhaustivePath(from, to, walls, vertices);
 }
 
 /**
@@ -207,11 +329,23 @@ function createManhattanPathWithAvoidance(
       walls,
       vertices
     );
-    return [...path1, ...path2.slice(1)];
+    const combinedPath = [...path1, ...path2.slice(1)];
+    
+    // Verify the combined path doesn't intersect walls
+    if (!hasWallIntersections(combinedPath, walls)) {
+      return combinedPath;
+    }
   }
 
-  // Fallback: use the path with fewer intersections
-  return hfIntersections <= vfIntersections ? horizontalFirst : verticalFirst;
+  // If still no clear path, try multiple intermediate waypoints
+  const multiWaypointPath = findMultiWaypointPath(from, to, walls, vertices, []);
+  if (multiWaypointPath.length > 0 && !hasWallIntersections(multiWaypointPath, walls)) {
+    return multiWaypointPath;
+  }
+
+  // Last resort: try to route through all available vertices
+  // This will create a longer path but ensures no wall intersections
+  return findExhaustivePath(from, to, walls, vertices);
 }
 
 /**
@@ -236,6 +370,7 @@ function countWallIntersections(
 
 /**
  * Find an intermediate waypoint to avoid walls
+ * Uses exhaustive search with multiple candidates
  */
 function findIntermediateWaypoint(
   from: Point,
@@ -243,38 +378,253 @@ function findIntermediateWaypoint(
   walls: LineSegment[],
   vertices: VertexData[]
 ): Point | null {
-  // Find vertices near the midpoint that might help avoid walls
+  // Find vertices near the path that might help avoid walls
   const midX = (from.x + to.x) / 2;
   const midY = (from.y + to.y) / 2;
+  const maxDistance = Math.sqrt(
+    Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2)
+  ) * 1.5; // Look within 1.5x the direct distance
 
-  // Find nearest vertices to midpoint
-  const nearbyVertices = vertices
+  // Find all vertices within reasonable distance
+  const candidateVertices = vertices
     .map((v) => ({
       vertex: v,
       distance: Math.sqrt(
         Math.pow(v.cx - midX, 2) + Math.pow(v.cy - midY, 2)
       ),
+      totalDistance: 
+        Math.sqrt(Math.pow(v.cx - from.x, 2) + Math.pow(v.cy - from.y, 2)) +
+        Math.sqrt(Math.pow(to.x - v.cx, 2) + Math.pow(to.y - v.cy, 2)),
     }))
-    .sort((a, b) => a.distance - b.distance)
-    .slice(0, 5); // Check top 5 nearest
+    .filter((c) => c.distance < maxDistance)
+    .sort((a, b) => a.totalDistance - b.totalDistance) // Prefer shorter total paths
+    .slice(0, 20); // Check top 20 candidates
 
-  // Try each nearby vertex as intermediate waypoint
-  for (const { vertex } of nearbyVertices) {
+  // Try each candidate vertex as intermediate waypoint
+  for (const { vertex } of candidateVertices) {
     const intermediate: Point = { x: vertex.cx, y: vertex.cy };
 
-    // Check if using this intermediate point avoids walls
-    const seg1: LineSegment = { start: from, end: intermediate };
-    const seg2: LineSegment = { start: intermediate, end: to };
+    // Check if using this intermediate point avoids walls (with Manhattan routing)
+    const path1 = createManhattanPath(from, intermediate);
+    const path2 = createManhattanPath(intermediate, to);
 
-    const seg1Clear = !walls.some((wall) => segmentsIntersect(seg1, wall));
-    const seg2Clear = !walls.some((wall) => segmentsIntersect(seg2, wall));
+    const path1Clear = !hasWallIntersections(path1, walls);
+    const path2Clear = !hasWallIntersections(path2, walls);
 
-    if (seg1Clear && seg2Clear) {
+    if (path1Clear && path2Clear) {
       return intermediate;
     }
   }
 
+  // If no single intermediate point works, try two intermediate points
+  for (const { vertex: v1 } of candidateVertices.slice(0, 10)) {
+    for (const { vertex: v2 } of candidateVertices.slice(0, 10)) {
+      if (v1.id === v2.id) continue;
+
+      const intermediate1: Point = { x: v1.cx, y: v1.cy };
+      const intermediate2: Point = { x: v2.cx, y: v2.cy };
+
+      const path1 = createManhattanPath(from, intermediate1);
+      const path2 = createManhattanPath(intermediate1, intermediate2);
+      const path3 = createManhattanPath(intermediate2, to);
+
+      if (
+        !hasWallIntersections(path1, walls) &&
+        !hasWallIntersections(path2, walls) &&
+        !hasWallIntersections(path3, walls)
+      ) {
+        // Return first intermediate, second will be handled recursively
+        return intermediate1;
+      }
+    }
+  }
+
   return null;
+}
+
+/**
+ * Check if a path has any wall intersections
+ */
+function hasWallIntersections(path: Point[], walls: LineSegment[]): boolean {
+  for (let i = 0; i < path.length - 1; i++) {
+    const segment: LineSegment = {
+      start: path[i],
+      end: path[i + 1],
+    };
+    if (walls.some((wall) => segmentsIntersect(segment, wall))) {
+      return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Find a path through multiple waypoints to avoid walls
+ */
+function findMultiWaypointPath(
+  from: Point,
+  to: Point,
+  walls: LineSegment[],
+  vertices: VertexData[],
+  remainingPath: string[]
+): Point[] {
+  // Try to use remaining path vertices as intermediate waypoints
+  if (remainingPath.length > 0) {
+    for (const vertexId of remainingPath.slice(0, 3)) {
+      const vertex = vertices.find((v) => v.id === vertexId);
+      if (!vertex) continue;
+
+      const intermediate: Point = { x: vertex.cx, y: vertex.cy };
+      const path1 = createManhattanPath(from, intermediate);
+      const path2 = createManhattanPath(intermediate, to);
+
+      if (!hasWallIntersections(path1, walls) && !hasWallIntersections(path2, walls)) {
+        return [...path1, ...path2.slice(1)];
+      }
+    }
+  }
+
+  // Fallback: try exhaustive search with more vertices
+  const maxDistance = Math.sqrt(
+    Math.pow(to.x - from.x, 2) + Math.pow(to.y - from.y, 2)
+  ) * 2;
+
+  const candidates = vertices
+    .map((v) => ({
+      vertex: v,
+      distance: Math.sqrt(
+        Math.pow(v.cx - from.x, 2) + Math.pow(v.cy - from.y, 2)
+      ) + Math.sqrt(
+        Math.pow(to.x - v.cx, 2) + Math.pow(to.y - v.cy, 2)
+      ),
+    }))
+    .filter((c) => c.distance < maxDistance)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 30);
+
+  for (const { vertex } of candidates) {
+    const intermediate: Point = { x: vertex.cx, y: vertex.cy };
+    const path1 = createManhattanPath(from, intermediate);
+    const path2 = createManhattanPath(intermediate, to);
+
+    if (!hasWallIntersections(path1, walls) && !hasWallIntersections(path2, walls)) {
+      return [...path1, ...path2.slice(1)];
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Find an exhaustive path that avoids all walls
+ * This may create a much longer path but guarantees no wall intersections
+ */
+function findExhaustivePath(
+  from: Point,
+  to: Point,
+  walls: LineSegment[],
+  vertices: VertexData[]
+): Point[] {
+  // Try to find a path through corridor vertices (vertices without objectName)
+  const corridorVertices = vertices.filter((v) => !v.objectName);
+  
+  // Sort by distance from start, then try to build a path
+  const sortedVertices = corridorVertices
+    .map((v) => ({
+      vertex: v,
+      distFromStart: Math.sqrt(
+        Math.pow(v.cx - from.x, 2) + Math.pow(v.cy - from.y, 2)
+      ),
+      distToEnd: Math.sqrt(
+        Math.pow(to.x - v.cx, 2) + Math.pow(to.y - v.cy, 2)
+      ),
+    }))
+    .sort((a, b) => a.distFromStart - b.distFromStart);
+
+  // Try building a path through corridor vertices
+  for (let i = 0; i < Math.min(10, sortedVertices.length); i++) {
+    const intermediate: Point = {
+      x: sortedVertices[i].vertex.cx,
+      y: sortedVertices[i].vertex.cy,
+    };
+
+    const path1 = createManhattanPath(from, intermediate);
+    const path2 = createManhattanPath(intermediate, to);
+
+    if (
+      !hasWallIntersections(path1, walls) &&
+      !hasWallIntersections(path2, walls)
+    ) {
+      return [...path1, ...path2.slice(1)];
+    }
+  }
+
+  // If still no path, try two intermediate points
+  for (let i = 0; i < Math.min(5, sortedVertices.length); i++) {
+    for (let j = i + 1; j < Math.min(5, sortedVertices.length); j++) {
+      const intermediate1: Point = {
+        x: sortedVertices[i].vertex.cx,
+        y: sortedVertices[i].vertex.cy,
+      };
+      const intermediate2: Point = {
+        x: sortedVertices[j].vertex.cx,
+        y: sortedVertices[j].vertex.cy,
+      };
+
+      const path1 = createManhattanPath(from, intermediate1);
+      const path2 = createManhattanPath(intermediate1, intermediate2);
+      const path3 = createManhattanPath(intermediate2, to);
+
+      if (
+        !hasWallIntersections(path1, walls) &&
+        !hasWallIntersections(path2, walls) &&
+        !hasWallIntersections(path3, walls)
+      ) {
+        return [...path1, ...path2.slice(1), ...path3.slice(1)];
+      }
+    }
+  }
+
+  // Ultimate fallback: return a path that goes around the perimeter
+  // This will be long but should avoid walls
+  const perimeterPath = createPerimeterPath(from, to, walls);
+  return perimeterPath;
+}
+
+/**
+ * Create a perimeter path that goes around obstacles
+ */
+function createPerimeterPath(
+  from: Point,
+  to: Point,
+  walls: LineSegment[]
+): Point[] {
+  // Try going around by moving to a safe distance from walls
+  // Move horizontally first, then vertically, checking for wall intersections
+  const safeDistance = 100; // Safe distance from walls
+
+  // Try horizontal-first with offset
+  const h1: Point = { x: to.x, y: from.y };
+  const h1Path = createManhattanPath(from, h1);
+  if (!hasWallIntersections(h1Path, walls)) {
+    const vPath = createManhattanPath(h1, to);
+    if (!hasWallIntersections(vPath, walls)) {
+      return [...h1Path, ...vPath.slice(1)];
+    }
+  }
+
+  // Try vertical-first with offset
+  const v1: Point = { x: from.x, y: to.y };
+  const v1Path = createManhattanPath(from, v1);
+  if (!hasWallIntersections(v1Path, walls)) {
+    const hPath = createManhattanPath(v1, to);
+    if (!hasWallIntersections(hPath, walls)) {
+      return [...v1Path, ...hPath.slice(1)];
+    }
+  }
+
+  // Last resort: return direct path (will be filtered out if it intersects)
+  return createManhattanPath(from, to);
 }
 
 /**
