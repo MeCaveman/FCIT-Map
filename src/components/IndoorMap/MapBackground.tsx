@@ -43,6 +43,11 @@ function MapBackground({ children }: MapBackgroundProps) {
       viewBox={floorConfig.viewBox}
       preserveAspectRatio="xMidYMid meet"
       className="w-full h-full"
+      style={{ 
+        width: '100%', 
+        height: '100%',
+        minHeight: 0
+      }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       onClick={handleSvgClick}
