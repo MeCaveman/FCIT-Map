@@ -2,9 +2,10 @@ import * as React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
 import { cn } from "./utils";
 
+// Low-level primitives used by the new sidebar
 const TooltipProvider = TooltipPrimitive.Provider;
 
-const Tooltip = TooltipPrimitive.Root;
+const TooltipRoot = TooltipPrimitive.Root;
 
 const TooltipTrigger = TooltipPrimitive.Trigger;
 
@@ -24,4 +25,22 @@ const TooltipContent = React.forwardRef<
 ));
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
+// Backwards-compatible simple Tooltip wrapper used across the app:
+// <Tooltip content="..." className="..."><button>...</button></Tooltip>
+type SimpleTooltipProps = {
+  content: React.ReactNode;
+  className?: string;
+  children: React.ReactNode;
+};
+
+const SimpleTooltip = ({ content, className, children }: SimpleTooltipProps) => (
+  <TooltipProvider>
+    <TooltipRoot>
+      <TooltipTrigger asChild>{children}</TooltipTrigger>
+      <TooltipContent className={className}>{content}</TooltipContent>
+    </TooltipRoot>
+  </TooltipProvider>
+);
+
+export default SimpleTooltip;
+export { TooltipRoot as Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };

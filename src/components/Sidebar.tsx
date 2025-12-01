@@ -1,5 +1,5 @@
 import logo from "../assets/img/FCITMapLogo.svg";
-import { FiChevronRight, Search } from "lucide-react";
+import { ChevronRight, Search } from "lucide-react";
 import { useContext, useMemo, useState } from "react";
 import {
   MapDataContextType,
@@ -22,7 +22,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarSeparator,
 } from "./ui/sidebar";
 
 type FloorKey = "F1" | "F2" | "Other";
@@ -141,7 +140,7 @@ function Sidebar() {
                       >
                         <div className="flex items-center justify-between w-full">
                           <span className="text-sm font-semibold text-left">{item.name}</span>
-                          <FiChevronRight className="h-4 w-4 text-teal-400 shrink-0" />
+                          <ChevronRight className="h-4 w-4 text-teal-400 shrink-0" />
                         </div>
                         {item.desc && (
                           <span className="text-xs text-gray-600 text-left w-full truncate">
