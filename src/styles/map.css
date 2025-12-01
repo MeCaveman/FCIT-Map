@@ -84,3 +84,19 @@
     stroke-dashoffset: 120;
   }
 }
+
+/* Remove white space around map */
+.react-transform-wrapper,
+.react-transform-component {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.react-transform-wrapper > div {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}

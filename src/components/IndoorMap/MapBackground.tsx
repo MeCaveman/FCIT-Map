@@ -41,12 +41,14 @@ function MapBackground({ children }: MapBackgroundProps) {
     <svg
       key={currentFloor}
       viewBox={floorConfig.viewBox}
-      preserveAspectRatio="xMidYMid meet"
-      className="w-full h-full"
+      preserveAspectRatio="none"
+      className="w-full h-full block"
       style={{ 
         width: '100%', 
         height: '100%',
-        minHeight: 0
+        display: 'block',
+        margin: 0,
+        padding: 0
       }}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
