@@ -119,17 +119,17 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   return (
     <Dialog open={open} handler={onClose}>
       <DialogHeader>
-        <div className="flex items-center gap-3">
+        <p>Where are you now?</p>
+      </DialogHeader>
+      <DialogBody>
+        <div className="flex justify-center mb-4">
           <img 
             src={whereAreYouSvg} 
             alt="Where are you?" 
-            className="w-12 h-12 object-contain"
+            className="w-32 h-32 md:w-40 md:h-40 object-contain"
           />
-          <p>Where are you now?</p>
         </div>
-      </DialogHeader>
-      <DialogBody>
-        <p className="mb-2 text-gray-700 text-sm">
+        <p className="mb-2 text-gray-700 text-sm text-center">
           Enter the room ID or name where you are currently located — suggestions will appear as you type.
         </p>
         <div className="mb-2">
