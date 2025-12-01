@@ -1,6 +1,6 @@
 import Tooltip from "@/components/ui/Tooltip";
 import { navigateWithDelay as navigationTestAll } from "@/utils/navigationHelper";
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useMemo, useRef, useState } from "react";
 import { FiNavigation } from "react-icons/fi";
 import { useOnClickOutside } from "usehooks-ts";
 import { MapDataContext, NavigationContext, WhereAreYouModalContext } from "../pages/Map";
@@ -9,6 +9,9 @@ import {
   NavigationContextType,
   ObjectItem,
 } from "../utils/types";
+import roomsCatalog from "@/data/roomsCatalog";
+import { graphData } from "@/store/graphData";
+import { graphDataF2 } from "@/store/graphDataF2";
 
 function SearchBar() {
   const [inputValue, setInputValue] = useState<string>("");
@@ -25,7 +28,7 @@ function SearchBar() {
   const [startX, setStartX] = useState(0);
   const [scrollLeft, setScrollLeft] = useState(0);
   const [hasDragged, setHasDragged] = useState(false);
-  const { navigation, setNavigation } = useContext(
+  const { navigation, setNavigation, currentFloor, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { setIsEditMode } = useContext(
@@ -35,9 +38,36 @@ function SearchBar() {
 
   const categoryChips = ["Class", "Lab", "Bathroom", "Office", "Other"];
 
-  useEffect(() => {
-    setSuggestions(objects);
+  // Filter to show rooms that are mapped to vertices OR are offices
+  const navigatableObjects = useMemo(() => {
+    return objects.filter((o) => {
+      // Find room in catalog
+      const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
+      if (!room) return false;
+      
+      // Always show offices, even if not mapped to vertices
+      if (room.categoryId === "Office") {
+        return true;
+      }
+      
+      // Select the appropriate graph data based on room floor
+      const currentGraphData = room.floor === "F2" ? graphDataF2 : graphData;
+      
+      // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
+      const hasVertex =
+        currentGraphData.vertices.some(
+          (v) => v.objectName === room.id || v.objectName === room.name
+        ) ||
+        (room.vertexId
+          ? currentGraphData.vertices.some((v) => v.id === room.vertexId)
+          : false);
+      return hasVertex;
+    });
   }, [objects]);
+
+  useEffect(() => {
+    setSuggestions(navigatableObjects);
+  }, [navigatableObjects]);
 
   useOnClickOutside(suggestionsRef, (event) => {
     // Don't close if clicking on input or chips
@@ -60,11 +90,11 @@ function SearchBar() {
     if (activeFilter === category) {
       // Toggle off
       setActiveFilter(null);
-      setSuggestions(objects);
+      setSuggestions(navigatableObjects);
     } else {
       // Filter by category
       setActiveFilter(category);
-      const filtered = objects.filter(
+      const filtered = navigatableObjects.filter(
         (obj) => (obj.categoryName || obj.categoryId || "").toLowerCase() === category.toLowerCase()
       );
       setSuggestions(filtered);
@@ -114,7 +144,7 @@ function SearchBar() {
     if (value) {
       setIsAutocomplete(true);
       const q = value.trim().toLowerCase();
-      const filteredSuggestions = objects.filter((obj) => {
+      const filteredSuggestions = navigatableObjects.filter((obj) => {
         const nameMatch = obj.name.toLowerCase().includes(q);
         const catMatch = (obj.categoryName || obj.categoryId || "").toLowerCase().includes(q);
         return nameMatch || catMatch;
@@ -152,13 +182,6 @@ function SearchBar() {
         }
         if (selectedIndex >= 0) {
           handleSuggestionClick(suggestions[selectedIndex]);
-          // Show modal before navigating
-          if (setModalState) {
-            setModalState({
-              open: true,
-              targetObjectName: suggestions[selectedIndex].name,
-            });
-          }
         } else {
           handleSearch(inputValue);
         }
@@ -181,12 +204,34 @@ function SearchBar() {
     console.log(selectedObject);
     setInputValue(selectedObject.name);
     setIsAutocomplete(false);
+    
+    // Switch floor if the selected room is on a different floor
+    if (selectedObject.floor && selectedObject.floor !== currentFloor) {
+      setCurrentFloor(selectedObject.floor);
+      // Wait a bit for the floor to switch before showing modal
+      setTimeout(() => {
+        if (setModalState) {
+          setModalState({
+            open: true,
+            targetObjectName: selectedObject.name,
+          });
+        }
+      }, 100);
+    } else {
+      // Show modal before navigating
+      if (setModalState) {
+        setModalState({
+          open: true,
+          targetObjectName: selectedObject.name,
+        });
+      }
+    }
   }
   function handleInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     setIsEditMode(false);
     setIsAutocomplete(true);
     if (!inputValue && !activeFilter) {
-      setSuggestions(objects);
+      setSuggestions(navigatableObjects);
     }
     event.currentTarget.select();
   }
@@ -199,25 +244,35 @@ function SearchBar() {
     const categoryKeywords = ["class", "lab", "bathroom", "office", "other"];
     const matchesCategoryKeyword = categoryKeywords.some((kw) => kw.startsWith(trimmed));
     if (matchesCategoryKeyword) {
-      const firstCatMatch = objects.find(
+      const firstCatMatch = navigatableObjects.find(
         (obj) => (obj.categoryName || obj.categoryId || "").toLowerCase().includes(trimmed)
       );
       if (firstCatMatch) {
-        if (setModalState) {
-          setModalState({ open: true, targetObjectName: firstCatMatch.name });
+        // Switch floor if the selected room is on a different floor
+        if (firstCatMatch.floor && firstCatMatch.floor !== currentFloor) {
+          setCurrentFloor(firstCatMatch.floor);
+          setTimeout(() => {
+            if (setModalState) {
+              setModalState({ open: true, targetObjectName: firstCatMatch.name });
+            }
+          }, 100);
+        } else {
+          if (setModalState) {
+            setModalState({ open: true, targetObjectName: firstCatMatch.name });
+          }
         }
         setSelectedIndex(-1);
         setIsAutocomplete(true);
         setInputValue(trimmed);
         setSuggestions(
-          objects.filter((obj) => (obj.categoryName || obj.categoryId || "").toLowerCase().includes(trimmed))
+          navigatableObjects.filter((obj) => (obj.categoryName || obj.categoryId || "").toLowerCase().includes(trimmed))
         );
         return;
       }
     }
 
     // Exact object search fallback
-    const matchingObject = objects.find(
+    const matchingObject = navigatableObjects.find(
       (obj) => obj.name.toLowerCase() === trimmed
     );
     if (!matchingObject) {
@@ -230,12 +285,27 @@ function SearchBar() {
         return;
       }
     }
-    // Show modal before navigating
-    if (setModalState) {
-      setModalState({
-        open: true,
-        targetObjectName: matchingObject.name,
-      });
+    
+    // Switch floor if the selected room is on a different floor
+    if (matchingObject.floor && matchingObject.floor !== currentFloor) {
+      setCurrentFloor(matchingObject.floor);
+      // Wait a bit for the floor to switch before showing modal
+      setTimeout(() => {
+        if (setModalState) {
+          setModalState({
+            open: true,
+            targetObjectName: matchingObject.name,
+          });
+        }
+      }, 100);
+    } else {
+      // Show modal before navigating
+      if (setModalState) {
+        setModalState({
+          open: true,
+          targetObjectName: matchingObject.name,
+        });
+      }
     }
     setSelectedIndex(-1);
   }
@@ -243,11 +313,6 @@ function SearchBar() {
   return (
     <div className="md:w-80 w-full flex flex-row">
       <div className="flex flex-inline rounded w-full">
-        <div className="h-12 w-12 center flex-none rounded-l bg-white text-teal-700 text-[8px] ">
-          <div className="w-full h-8 center border-gray-300 border-r">
-            <img src="/src/assets/img/FCITMapLogo.svg" alt="FCIT" className="w-6 h-6" />
-          </div>
-        </div>
         <div className="flex w-full relative">
           <input
             className={`h-12 p-4 w-full flex-none text-gray-900 text-sm md:text-md ${

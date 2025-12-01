@@ -1,6 +1,7 @@
 import logo from "../assets/img/FCITMapLogo.svg";
 import { ChevronRight, Search, MapPin } from "lucide-react";
 import { useContext, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapDataContextType,
   NavigationContextType,
@@ -10,6 +11,7 @@ import { MapDataContext, NavigationContext } from "../pages/Map";
 
 import { navigateToObject } from "@/utils/navigationHelper";
 import { graphData } from "@/store/graphData";
+import { graphDataF2 } from "@/store/graphDataF2";
 import roomsCatalog from "@/data/roomsCatalog";
 import {
   Sidebar as SidebarPrimitive,
@@ -24,32 +26,45 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 
-type FloorKey = "F1" | "F2" | "Other";
-
 function Sidebar() {
-  const { navigation, setNavigation, setIsEditMode } = useContext(
+  const { navigation, setNavigation, setIsEditMode, currentFloor, setCurrentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [searchQuery, setSearchQuery] = useState("");
   const [isRotating, setIsRotating] = useState(false);
+  const navigate = useNavigate();
+  
+  const handleLogoClick = () => {
+    navigate("/");
+  };
    
-  // Filter to only show navigatable rooms (those mapped to vertices)
-  const navigatableObjects = objects.filter((o) => {
-   // Find room in catalog
-   const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
-   if (!room) return false;
-    
-   // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
-   const hasVertex =
-     graphData.vertices.some(
-       (v) => v.objectName === room.id || v.objectName === room.name
-     ) ||
-     (room.vertexId
-       ? graphData.vertices.some((v) => v.id === room.vertexId)
-       : false);
-   return hasVertex;
-  });
+  // Filter to show rooms that are mapped to vertices OR are offices
+  const navigatableObjects = useMemo(() => {
+    return objects.filter((o) => {
+      // Find room in catalog
+      const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
+      if (!room) return false;
+      
+      // Always show offices, even if not mapped to vertices
+      if (room.categoryId === "Office") {
+        return true;
+      }
+      
+      // Select the appropriate graph data based on room floor
+      const currentGraphData = room.floor === "F2" ? graphDataF2 : graphData;
+      
+      // Check if this room is mapped to a vertex via ID, name, or explicit vertexId
+      const hasVertex =
+        currentGraphData.vertices.some(
+          (v) => v.objectName === room.id || v.objectName === room.name
+        ) ||
+        (room.vertexId
+          ? currentGraphData.vertices.some((v) => v.id === room.vertexId)
+          : false);
+      return hasVertex;
+    });
+  }, [objects]);
 
   // Filter objects by search query
   const filteredObjects = useMemo(() => {
@@ -62,16 +77,19 @@ function Sidebar() {
     );
   }, [navigatableObjects, searchQuery]);
 
-  const objectsByFloor = useMemo(() => {
-    const grouped: Record<FloorKey, ObjectItem[]> = { F1: [], F2: [], Other: [] };
+  // Group objects by category instead of floor
+  const objectsByCategory = useMemo(() => {
+    const grouped: Record<string, ObjectItem[]> = {};
     filteredObjects.forEach((o) => {
-      if (o.floor === "F1") grouped.F1.push(o);
-      else if (o.floor === "F2") grouped.F2.push(o);
-      else grouped.Other.push(o);
+      const category = o.categoryName || o.categoryId || "Other";
+      if (!grouped[category]) {
+        grouped[category] = [];
+      }
+      grouped[category].push(o);
     });
     // Sort each group alphabetically by name
-    (Object.keys(grouped) as FloorKey[]).forEach((k) => {
-      grouped[k] = grouped[k].slice().sort((a: ObjectItem, b: ObjectItem) => a.name.localeCompare(b.name));
+    Object.keys(grouped).forEach((category) => {
+      grouped[category] = grouped[category].slice().sort((a: ObjectItem, b: ObjectItem) => a.name.localeCompare(b.name));
     });
     return grouped;
   }, [filteredObjects]);
@@ -80,22 +98,42 @@ function Sidebar() {
     const object = objects.find((obj) => obj.name === selectedObjectName);
     setIsEditMode(false);
     if (!object) return;
-    navigateToObject(object.name, navigation, setNavigation);
+    
+    // Switch floor if the selected room is on a different floor
+    if (object.floor && object.floor !== currentFloor) {
+      setCurrentFloor(object.floor);
+      // Wait a bit for the floor to switch before navigating
+      setTimeout(() => {
+        navigateToObject(object.name, navigation, setNavigation);
+      }, 100);
+    } else {
+      navigateToObject(object.name, navigation, setNavigation);
+    }
   }
 
-  const floorOrder: FloorKey[] = ["F1", "F2", "Other"];
-  const floorLabel: Record<FloorKey, string> = { F1: "Floor 1", F2: "Floor 2", Other: "Other" };
+  // Sort categories alphabetically
+  const categoryOrder = useMemo(() => {
+    return Object.keys(objectsByCategory).sort();
+  }, [objectsByCategory]);
 
   return (
     <SidebarPrimitive collapsible="icon" className="bg-white border-r border-gray-200">
       <SidebarHeader className="border-b border-gray-200 pb-4">
         <div className="flex items-center gap-3 px-2">
-          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10">
+          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10 cursor-pointer hover:bg-gray-200 transition-colors">
             <img
               src={logo}
               alt="FCIT Map"
               className={`w-10 h-10 object-contain group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:h-8 ${isRotating ? "rotate" : ""}`}
-              onClick={() => setIsRotating(true)}
+              onClick={(e) => {
+                if (e.detail === 2) {
+                  // Double click for rotation
+                  setIsRotating(true);
+                } else {
+                  // Single click for navigation
+                  handleLogoClick();
+                }
+              }}
               onAnimationEnd={() => setIsRotating(false)}
             />
           </div>
@@ -119,19 +157,19 @@ function Sidebar() {
       </SidebarHeader>
       
       <SidebarContent>
-        {floorOrder
-          .filter((f) => objectsByFloor[f].length > 0)
-          .map((floor) => (
-            <SidebarGroup key={floor}>
+        {categoryOrder
+          .filter((category) => objectsByCategory[category].length > 0)
+          .map((category) => (
+            <SidebarGroup key={category}>
               <SidebarGroupLabel>
-                {floorLabel[floor]}
+                {category}
                 <span className="ml-2 text-xs font-normal text-gray-500">
-                  ({objectsByFloor[floor].length})
+                  ({objectsByCategory[category].length})
                 </span>
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {objectsByFloor[floor].map((item: ObjectItem) => (
+                  {objectsByCategory[category].map((item: ObjectItem) => (
                     <SidebarMenuItem key={item.id?.toString()}>
                       <SidebarMenuButton
                         onClick={() => handleObjectNavigation(item.name)}
@@ -160,7 +198,7 @@ function Sidebar() {
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
-        {floorOrder.filter((f) => objectsByFloor[f].length > 0).length === 0 && (
+        {categoryOrder.filter((category) => objectsByCategory[category].length > 0).length === 0 && (
           <div className="px-4 py-8 text-center text-sm text-gray-500">
             {searchQuery ? "No rooms found matching your search." : "No rooms available."}
           </div>

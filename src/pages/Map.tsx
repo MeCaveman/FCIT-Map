@@ -72,7 +72,7 @@ function Map() {
               {isDesktop && <Sidebar />}
               <SidebarInset className="flex flex-col w-full h-full overflow-hidden bg-white">
                 <Toolbar />
-                <div className="center w-full h-full flex-1 md:p-10 p-0">
+                <div className="w-full flex-1 overflow-hidden p-0 min-h-0">
                   <IndoorMapWrapper />
                 </div>
               </SidebarInset>

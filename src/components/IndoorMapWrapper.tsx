@@ -89,7 +89,7 @@ function IndoorMapWrapper() {
     }
   }
   return (
-    <div className="relative w-full h-full bg-white center overflow-hidden">
+    <div className="relative w-full h-full bg-white overflow-hidden" style={{ margin: 0, padding: 0 }}>
       {DEV_LOG_COORDS && (
         <div className="absolute top-2 left-2 z-20 bg-white/80 rounded px-2 py-1 text-xs text-gray-700">
           Click the map to log SVG coords in console
@@ -124,7 +124,7 @@ function IndoorMapWrapper() {
         onZoom={() => {}}
         onPinching={() => {}}
       >
-        <TransformComponent wrapperClass="bg-white">
+        <TransformComponent wrapperClass="bg-white" wrapperStyle={{ width: '100%', height: '100%', margin: 0, padding: 0 }}>
           <MapBackground>
             {/*Objects are the clickable areas on the map e.g. Rooms, Desks, ...*/}
             <Objects
