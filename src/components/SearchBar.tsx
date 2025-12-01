@@ -38,12 +38,17 @@ function SearchBar() {
 
   const categoryChips = ["Class", "Lab", "Bathroom", "Office", "Other"];
 
-  // Filter to only show rooms that are mapped to vertices
+  // Filter to show rooms that are mapped to vertices OR are offices
   const navigatableObjects = useMemo(() => {
     return objects.filter((o) => {
       // Find room in catalog
       const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
       if (!room) return false;
+      
+      // Always show offices, even if not mapped to vertices
+      if (room.categoryId === "Office") {
+        return true;
+      }
       
       // Select the appropriate graph data based on room floor
       const currentGraphData = room.floor === "F2" ? graphDataF2 : graphData;

@@ -25,8 +25,6 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 
-type FloorKey = "F1" | "F2" | "Other";
-
 function Sidebar() {
   const { navigation, setNavigation, setIsEditMode, currentFloor, setCurrentFloor } = useContext(
     NavigationContext
@@ -35,12 +33,17 @@ function Sidebar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [isRotating, setIsRotating] = useState(false);
    
-  // Filter to only show rooms that are mapped to vertices
+  // Filter to show rooms that are mapped to vertices OR are offices
   const navigatableObjects = useMemo(() => {
     return objects.filter((o) => {
       // Find room in catalog
       const room = roomsCatalog.find((r) => r.name === o.name || r.id === o.name);
       if (!room) return false;
+      
+      // Always show offices, even if not mapped to vertices
+      if (room.categoryId === "Office") {
+        return true;
+      }
       
       // Select the appropriate graph data based on room floor
       const currentGraphData = room.floor === "F2" ? graphDataF2 : graphData;
@@ -68,16 +71,19 @@ function Sidebar() {
     );
   }, [navigatableObjects, searchQuery]);
 
-  const objectsByFloor = useMemo(() => {
-    const grouped: Record<FloorKey, ObjectItem[]> = { F1: [], F2: [], Other: [] };
+  // Group objects by category instead of floor
+  const objectsByCategory = useMemo(() => {
+    const grouped: Record<string, ObjectItem[]> = {};
     filteredObjects.forEach((o) => {
-      if (o.floor === "F1") grouped.F1.push(o);
-      else if (o.floor === "F2") grouped.F2.push(o);
-      else grouped.Other.push(o);
+      const category = o.categoryName || o.categoryId || "Other";
+      if (!grouped[category]) {
+        grouped[category] = [];
+      }
+      grouped[category].push(o);
     });
     // Sort each group alphabetically by name
-    (Object.keys(grouped) as FloorKey[]).forEach((k) => {
-      grouped[k] = grouped[k].slice().sort((a: ObjectItem, b: ObjectItem) => a.name.localeCompare(b.name));
+    Object.keys(grouped).forEach((category) => {
+      grouped[category] = grouped[category].slice().sort((a: ObjectItem, b: ObjectItem) => a.name.localeCompare(b.name));
     });
     return grouped;
   }, [filteredObjects]);
@@ -99,8 +105,10 @@ function Sidebar() {
     }
   }
 
-  const floorOrder: FloorKey[] = ["F1", "F2", "Other"];
-  const floorLabel: Record<FloorKey, string> = { F1: "Floor 1", F2: "Floor 2", Other: "Other" };
+  // Sort categories alphabetically
+  const categoryOrder = useMemo(() => {
+    return Object.keys(objectsByCategory).sort();
+  }, [objectsByCategory]);
 
   return (
     <SidebarPrimitive collapsible="icon" className="bg-white border-r border-gray-200">
@@ -135,19 +143,19 @@ function Sidebar() {
       </SidebarHeader>
       
       <SidebarContent>
-        {floorOrder
-          .filter((f) => objectsByFloor[f].length > 0)
-          .map((floor) => (
-            <SidebarGroup key={floor}>
+        {categoryOrder
+          .filter((category) => objectsByCategory[category].length > 0)
+          .map((category) => (
+            <SidebarGroup key={category}>
               <SidebarGroupLabel>
-                {floorLabel[floor]}
+                {category}
                 <span className="ml-2 text-xs font-normal text-gray-500">
-                  ({objectsByFloor[floor].length})
+                  ({objectsByCategory[category].length})
                 </span>
               </SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {objectsByFloor[floor].map((item: ObjectItem) => (
+                  {objectsByCategory[category].map((item: ObjectItem) => (
                     <SidebarMenuItem key={item.id?.toString()}>
                       <SidebarMenuButton
                         onClick={() => handleObjectNavigation(item.name)}
@@ -176,7 +184,7 @@ function Sidebar() {
               </SidebarGroupContent>
             </SidebarGroup>
           ))}
-        {floorOrder.filter((f) => objectsByFloor[f].length > 0).length === 0 && (
+        {categoryOrder.filter((category) => objectsByCategory[category].length > 0).length === 0 && (
           <div className="px-4 py-8 text-center text-sm text-gray-500">
             {searchQuery ? "No rooms found matching your search." : "No rooms available."}
           </div>
