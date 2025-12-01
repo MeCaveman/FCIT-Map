@@ -1,0 +1,757 @@
+[
+  {
+    "placeholderId": "15I12-A",
+    "clickableCenter": {
+      "cx": 1254.168,
+      "cy": 9359.54
+    },
+    "nearestVertex": "v24",
+    "nearestVertexName": "15I12-A",
+    "distance": 450,
+    "matchedRoom": {
+      "id": "15I12-A",
+      "name": "L1-3 - 15I12-A",
+      "floor": "F1",
+      "categoryId": "Labs"
+    }
+  },
+  {
+    "placeholderId": "15F05",
+    "clickableCenter": {
+      "cx": 1173.25,
+      "cy": 10259.849999999999
+    },
+    "nearestVertex": "v25",
+    "nearestVertexName": "15F05",
+    "distance": 350,
+    "matchedRoom": {
+      "id": "15F05A",
+      "name": "L1-2 - 15F05A",
+      "floor": "F1",
+      "categoryId": "Labs"
+    }
+  },
+  {
+    "placeholderId": "e3",
+    "clickableCenter": {
+      "cx": 2187.465,
+      "cy": 10272.25
+    },
+    "nearestVertex": "v14",
+    "nearestVertexName": "15F04-B",
+    "distance": 362,
+    "matchedRoom": {
+      "id": "e3",
+      "name": "Entrance 3",
+      "floor": "F1",
+      "categoryId": "Other"
+    }
+  },
+  {
+    "placeholderId": "15I13-A",
+    "clickableCenter": {
+      "cx": 2246.755,
+      "cy": 9367.259999999998
+    },
+    "nearestVertex": "v12",
+    "nearestVertexName": "15I13-A",
+    "distance": 486,
+    "matchedRoom": {
+      "id": "15I13-A",
+      "name": "L1-4 (Door 2) - 15I13-A",
+      "floor": "F1",
+      "categoryId": "Labs"
+    }
+  },
+  {
+    "placeholderId": "15I15-A",
+    "clickableCenter": {
+      "cx": 3133.025,
+      "cy": 9361.02
+    },
+    "nearestVertex": "v6",
+    "nearestVertexName": "15I15-A",
+    "distance": 390,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-6",
+    "clickableCenter": {
+      "cx": 434.7775,
+      "cy": 9254.625
+    },
+    "nearestVertex": "v27",
+    "nearestVertexName": null,
+    "distance": 495,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "15F07",
+    "clickableCenter": {
+      "cx": 230.9305,
+      "cy": 10156.61
+    },
+    "nearestVertex": "v33",
+    "nearestVertexName": "15F07",
+    "distance": 231,
+    "matchedRoom": {
+      "id": "15F07",
+      "name": "Toilet - 15F07",
+      "floor": "F1",
+      "categoryId": "Bathroom"
+    }
+  },
+  {
+    "placeholderId": "15F02",
+    "clickableCenter": {
+      "cx": 2738.98,
+      "cy": 10092.46
+    },
+    "nearestVertex": "v8",
+    "nearestVertexName": "15F02",
+    "distance": 130,
+    "matchedRoom": {
+      "id": "15F02",
+      "name": "Electrical Room - 15F02",
+      "floor": "F1",
+      "categoryId": "Facilities"
+    }
+  },
+  {
+    "placeholderId": "15F03",
+    "clickableCenter": {
+      "cx": 2738.98,
+      "cy": 10391.7
+    },
+    "nearestVertex": "v10",
+    "nearestVertexName": "15F03",
+    "distance": 137,
+    "matchedRoom": {
+      "id": "15F03",
+      "name": "Communications - 15F03",
+      "floor": "F1",
+      "categoryId": "Facilities"
+    }
+  },
+  {
+    "placeholderId": "placeholder-10",
+    "clickableCenter": {
+      "cx": 2911.76,
+      "cy": 8906.145
+    },
+    "nearestVertex": "v47",
+    "nearestVertexName": null,
+    "distance": 152,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-11",
+    "clickableCenter": {
+      "cx": 2911.76,
+      "cy": 8118.8150000000005
+    },
+    "nearestVertex": "v46",
+    "nearestVertexName": null,
+    "distance": 153,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-12",
+    "clickableCenter": {
+      "cx": 4294.035,
+      "cy": 6891.51
+    },
+    "nearestVertex": "v54",
+    "nearestVertexName": null,
+    "distance": 247,
+    "matchedRoom": {
+      "id": "15E36",
+      "name": "Toilet - 15E36",
+      "floor": "F1",
+      "categoryId": "Bathroom"
+    }
+  },
+  {
+    "placeholderId": "placeholder-13",
+    "clickableCenter": {
+      "cx": 3218.1400000000003,
+      "cy": 6912.885
+    },
+    "nearestVertex": "v57",
+    "nearestVertexName": null,
+    "distance": 245,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-14",
+    "clickableCenter": {
+      "cx": 3118.775,
+      "cy": 7615.360000000001
+    },
+    "nearestVertex": "v63",
+    "nearestVertexName": null,
+    "distance": 412,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-15",
+    "clickableCenter": {
+      "cx": 2334.85,
+      "cy": 7615.360000000001
+    },
+    "nearestVertex": "v67",
+    "nearestVertexName": null,
+    "distance": 381,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-16",
+    "clickableCenter": {
+      "cx": 1655.52,
+      "cy": 7615.360000000001
+    },
+    "nearestVertex": "v73",
+    "nearestVertexName": null,
+    "distance": 338,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-17",
+    "clickableCenter": {
+      "cx": 999.1179999999999,
+      "cy": 7615.360000000001
+    },
+    "nearestVertex": "v75",
+    "nearestVertexName": null,
+    "distance": 386,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-18",
+    "clickableCenter": {
+      "cx": 1216.9665,
+      "cy": 6666.585
+    },
+    "nearestVertex": "v77",
+    "nearestVertexName": null,
+    "distance": 431,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-19",
+    "clickableCenter": {
+      "cx": 2094.08,
+      "cy": 6666.585
+    },
+    "nearestVertex": "v65",
+    "nearestVertexName": null,
+    "distance": 405,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-20",
+    "clickableCenter": {
+      "cx": 2820.7,
+      "cy": 6564.83
+    },
+    "nearestVertex": "v61",
+    "nearestVertexName": null,
+    "distance": 212,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-21",
+    "clickableCenter": {
+      "cx": 226.613,
+      "cy": 6950.355
+    },
+    "nearestVertex": "v82",
+    "nearestVertexName": null,
+    "distance": 181,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-22",
+    "clickableCenter": {
+      "cx": 230.613,
+      "cy": 7483.9400000000005
+    },
+    "nearestVertex": "v85",
+    "nearestVertexName": null,
+    "distance": 192,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-23",
+    "clickableCenter": {
+      "cx": 2814.825,
+      "cy": 6251.365
+    },
+    "nearestVertex": "v99",
+    "nearestVertexName": null,
+    "distance": 200,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-24",
+    "clickableCenter": {
+      "cx": 2814.825,
+      "cy": 5425.844999999999
+    },
+    "nearestVertex": "v98",
+    "nearestVertexName": null,
+    "distance": 226,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-25",
+    "clickableCenter": {
+      "cx": 3436.835,
+      "cy": 4785.195
+    },
+    "nearestVertex": "v104",
+    "nearestVertexName": null,
+    "distance": 141,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-26",
+    "clickableCenter": {
+      "cx": 3436.835,
+      "cy": 4997.305
+    },
+    "nearestVertex": "v103",
+    "nearestVertexName": null,
+    "distance": 142,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-27",
+    "clickableCenter": {
+      "cx": 4283.855,
+      "cy": 4785.195
+    },
+    "nearestVertex": "v106",
+    "nearestVertexName": null,
+    "distance": 251,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-28",
+    "clickableCenter": {
+      "cx": 4283.855,
+      "cy": 4974.375
+    },
+    "nearestVertex": "v106",
+    "nearestVertexName": null,
+    "distance": 313,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-29",
+    "clickableCenter": {
+      "cx": 4564.76,
+      "cy": 3958.2400000000002
+    },
+    "nearestVertex": "v112",
+    "nearestVertexName": null,
+    "distance": 367,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-30",
+    "clickableCenter": {
+      "cx": 2860.69,
+      "cy": 5195.094999999999
+    },
+    "nearestVertex": "v101",
+    "nearestVertexName": null,
+    "distance": 212,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-31",
+    "clickableCenter": {
+      "cx": 2860.69,
+      "cy": 4714.975
+    },
+    "nearestVertex": "v125",
+    "nearestVertexName": null,
+    "distance": 164,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-32",
+    "clickableCenter": {
+      "cx": 3174.56,
+      "cy": 4723.575
+    },
+    "nearestVertex": "v117",
+    "nearestVertexName": null,
+    "distance": 251,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-33",
+    "clickableCenter": {
+      "cx": 2809.0950000000003,
+      "cy": 4032.77
+    },
+    "nearestVertex": "v119",
+    "nearestVertexName": null,
+    "distance": 316,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-34",
+    "clickableCenter": {
+      "cx": 1716.995,
+      "cy": 4078.635
+    },
+    "nearestVertex": "v127",
+    "nearestVertexName": null,
+    "distance": 307,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-35",
+    "clickableCenter": {
+      "cx": 1407.4215,
+      "cy": 5013.08
+    },
+    "nearestVertex": "v131",
+    "nearestVertexName": null,
+    "distance": 336,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-36",
+    "clickableCenter": {
+      "cx": 2343.305,
+      "cy": 4995.88
+    },
+    "nearestVertex": "v123",
+    "nearestVertexName": null,
+    "distance": 405,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-37",
+    "clickableCenter": {
+      "cx": 275.1955,
+      "cy": 4882.67
+    },
+    "nearestVertex": "v143",
+    "nearestVertexName": null,
+    "distance": 262,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-38",
+    "clickableCenter": {
+      "cx": 405.6165,
+      "cy": 3496.765
+    },
+    "nearestVertex": "v151",
+    "nearestVertexName": "null",
+    "distance": 408,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-39",
+    "clickableCenter": {
+      "cx": 418.5155,
+      "cy": 2920.62
+    },
+    "nearestVertex": "v154",
+    "nearestVertexName": null,
+    "distance": 436,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-40",
+    "clickableCenter": {
+      "cx": 418.5155,
+      "cy": 2340.175
+    },
+    "nearestVertex": "v158",
+    "nearestVertexName": null,
+    "distance": 390,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-41",
+    "clickableCenter": {
+      "cx": 454.3455,
+      "cy": 1937.4499999999998
+    },
+    "nearestVertex": "v165",
+    "nearestVertexName": null,
+    "distance": 395,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-42",
+    "clickableCenter": {
+      "cx": 1298.095,
+      "cy": 2227.095
+    },
+    "nearestVertex": "v171",
+    "nearestVertexName": null,
+    "distance": 281,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-43",
+    "clickableCenter": {
+      "cx": 1247.7150000000001,
+      "cy": 2730.83
+    },
+    "nearestVertex": "v156",
+    "nearestVertexName": null,
+    "distance": 365,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-44",
+    "clickableCenter": {
+      "cx": 1717.865,
+      "cy": 2730.83
+    },
+    "nearestVertex": "v156",
+    "nearestVertexName": null,
+    "distance": 714,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-45",
+    "clickableCenter": {
+      "cx": 1720.3400000000001,
+      "cy": 3482.995
+    },
+    "nearestVertex": "v153",
+    "nearestVertexName": null,
+    "distance": 699,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-46",
+    "clickableCenter": {
+      "cx": 1254.25,
+      "cy": 3499.885
+    },
+    "nearestVertex": "v149",
+    "nearestVertexName": null,
+    "distance": 330,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-47",
+    "clickableCenter": {
+      "cx": 2381.535,
+      "cy": 2690.305
+    },
+    "nearestVertex": "v189",
+    "nearestVertexName": null,
+    "distance": 746,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-48",
+    "clickableCenter": {
+      "cx": 2440.645,
+      "cy": 2219.1549999999997
+    },
+    "nearestVertex": "v189",
+    "nearestVertexName": null,
+    "distance": 312,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-49",
+    "clickableCenter": {
+      "cx": 1917.1350000000002,
+      "cy": 2288.395
+    },
+    "nearestVertex": "v186",
+    "nearestVertexName": null,
+    "distance": 397,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-50",
+    "clickableCenter": {
+      "cx": 2509.88,
+      "cy": 1744.63
+    },
+    "nearestVertex": "v188",
+    "nearestVertexName": null,
+    "distance": 236,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-51",
+    "clickableCenter": {
+      "cx": 1922.21,
+      "cy": 1623.045
+    },
+    "nearestVertex": "v183",
+    "nearestVertexName": null,
+    "distance": 115,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-52",
+    "clickableCenter": {
+      "cx": 1922.21,
+      "cy": 1822.315
+    },
+    "nearestVertex": "v185",
+    "nearestVertexName": null,
+    "distance": 123,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-53",
+    "clickableCenter": {
+      "cx": 743.479,
+      "cy": 1224.504
+    },
+    "nearestVertex": "v165",
+    "nearestVertexName": null,
+    "distance": 638,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-54",
+    "clickableCenter": {
+      "cx": 2756.4449999999997,
+      "cy": 253.4865
+    },
+    "nearestVertex": "v200",
+    "nearestVertexName": null,
+    "distance": 372,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-55",
+    "clickableCenter": {
+      "cx": 1584.4650000000001,
+      "cy": 287.26099999999997
+    },
+    "nearestVertex": "v205",
+    "nearestVertexName": null,
+    "distance": 391,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-56",
+    "clickableCenter": {
+      "cx": 3337.365,
+      "cy": 288.95
+    },
+    "nearestVertex": "v208",
+    "nearestVertexName": null,
+    "distance": 279,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-57",
+    "clickableCenter": {
+      "cx": 3230.975,
+      "cy": 993.1505
+    },
+    "nearestVertex": "v194",
+    "nearestVertexName": null,
+    "distance": 320,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-58",
+    "clickableCenter": {
+      "cx": 2373.115,
+      "cy": 3320.24
+    },
+    "nearestVertex": "v121",
+    "nearestVertexName": null,
+    "distance": 985,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-59",
+    "clickableCenter": {
+      "cx": 466.45300000000003,
+      "cy": 6699.713
+    },
+    "nearestVertex": "v80",
+    "nearestVertexName": null,
+    "distance": 365,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-60",
+    "clickableCenter": {
+      "cx": 2204.0485,
+      "cy": 2590.118
+    },
+    "nearestVertex": "v189",
+    "nearestVertexName": null,
+    "distance": 643,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-61",
+    "clickableCenter": {
+      "cx": 1248.505,
+      "cy": 4078.635
+    },
+    "nearestVertex": "v133",
+    "nearestVertexName": null,
+    "distance": 295,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-62",
+    "clickableCenter": {
+      "cx": 3230.975,
+      "cy": 1510.31
+    },
+    "nearestVertex": "v193",
+    "nearestVertexName": null,
+    "distance": 342,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-63",
+    "clickableCenter": {
+      "cx": 627.9205,
+      "cy": 377.059
+    },
+    "nearestVertex": "v205",
+    "nearestVertexName": null,
+    "distance": 624,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-64",
+    "clickableCenter": {
+      "cx": 2374.2200000000003,
+      "cy": 4144.925
+    },
+    "nearestVertex": "v121",
+    "nearestVertexName": null,
+    "distance": 323,
+    "matchedRoom": null
+  },
+  {
+    "placeholderId": "placeholder-65",
+    "clickableCenter": {
+      "cx": 237.3435,
+      "cy": 9636.185
+    },
+    "nearestVertex": "v35",
+    "nearestVertexName": null,
+    "distance": 172,
+    "matchedRoom": null
+  }
+]

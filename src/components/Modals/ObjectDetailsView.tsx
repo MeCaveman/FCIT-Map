@@ -8,6 +8,9 @@ interface ObjectDetailsViewProps {
 }
 
 function ObjectDetailsView({ object, objectNavigation }: ObjectDetailsViewProps) {
+  // Only show navigation button if the object has a vertexId assigned
+  const hasNavigation = object.vertexId !== undefined && object.vertexId !== null && object.vertexId !== "";
+  
   return (
     <>
       <DialogHeader>
@@ -21,15 +24,17 @@ function ObjectDetailsView({ object, objectNavigation }: ObjectDetailsViewProps)
             <p className="text-sm text-gray-500 mt-1">{object.floor === "F2" ? "Floor 2" : "Floor 1"}</p>
           )}
         </div>
-        <div className="inline-flex rounded-md right-0 bottom-0 p-2 absolute">
-          <button
-            type="button"
-            className="text-white bg-blue-500 hover:bg-blue-800 hover:ring-2 focus:outline-none focus:ring-blue-300 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
-            onClick={objectNavigation}
-          >
-            <FiNavigation />
-          </button>
-        </div>
+        {hasNavigation && (
+          <div className="inline-flex rounded-md right-0 bottom-0 p-2 absolute">
+            <button
+              type="button"
+              className="text-white bg-teal-700 hover:bg-teal-900 hover:ring-2 focus:outline-none focus:ring-teal-400 font-medium rounded-full text-sm p-2.5 text-center inline-flex items-center"
+              onClick={objectNavigation}
+            >
+              <FiNavigation />
+            </button>
+          </div>
+        )}
       </DialogBody>
     </>
   );

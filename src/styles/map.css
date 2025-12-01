@@ -1,20 +1,25 @@
 :root {
   --object-opacity: 0.1;
-  --object-color: #c1c1c1;
-  --object-oppacity-hover: 0.5;
+  --object-color: #23682f;
+  --object-oppacity-hover: 0.2;
   --position-color: rgba(129, 129, 129, 0.557);
-  --path-color: #488af4;
+  --path-color: #0f766e;
 }
 
 .object {
   stroke-opacity: 0;
   opacity: var(--object-opacity);
   fill: var(--object-color);
+  filter: blur(40px) brightness(1.2);
+  clip-path: circle(50% at center);
+  transition: opacity 0.3s ease, filter 0.3s ease;
 }
 .object-hover {
   stroke-opacity: 0;
   opacity: var(--object-oppacity-hover);
   cursor: pointer;
+  filter: blur(120px) brightness(1.2);
+  clip-path: circle(90% at center);
 }
 
 .position {
@@ -24,7 +29,7 @@
 
 .position-active {
   opacity: 1;
-  fill: #4285f4;
+  fill: #0f766e;
 }
 
 .path {

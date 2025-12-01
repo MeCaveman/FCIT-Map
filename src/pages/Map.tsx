@@ -11,6 +11,7 @@ import {
   NavigationContextType,
 } from "../utils/types";
 import Sidebar from "@/components/Sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import WhereAreYouModal from "@/components/Modals/WhereAreYouModal";
 import Loading from "./Loading";
 
@@ -66,23 +67,23 @@ function Map() {
     <MapDataContext.Provider value={mapData}>
       <NavigationContext.Provider value={navigationValue}>
         <WhereAreYouModalContext.Provider value={{ modalState, setModalState }}>
-          <div className="flex bg-gray-100 text-gray-800 relative overflow-hidden w-full h-screen">
-            {isDesktop && <Sidebar />}
-            <main
-              className={`flex w-full ${isDesktop && "-ml-96"} justify-center flex-grow flex-col md:p-10 p-2 transition-all duration-150 ease-in lg:ml-0`}
-            >
-              <Toolbar />
-              <div className="center w-full h-full">
-                <IndoorMapWrapper />
-              </div>
-            </main>
-            {navigation.end && isMobile && <MobileRouteDetails />}
-            <WhereAreYouModal 
-              open={modalState.open}
-              onClose={() => setModalState({ open: false, targetObjectName: "" })}
-              targetObjectName={modalState.targetObjectName}
-            />
-          </div>
+          <SidebarProvider defaultOpen={isDesktop}>
+            <div className="flex bg-gray-100 text-gray-800 relative overflow-hidden w-full h-screen">
+              {isDesktop && <Sidebar />}
+              <SidebarInset className="flex flex-col">
+                <Toolbar />
+                <div className="center w-full h-full flex-1 md:p-10 p-2">
+                  <IndoorMapWrapper />
+                </div>
+              </SidebarInset>
+              {navigation.end && isMobile && <MobileRouteDetails />}
+              <WhereAreYouModal 
+                open={modalState.open}
+                onClose={() => setModalState({ open: false, targetObjectName: "" })}
+                targetObjectName={modalState.targetObjectName}
+              />
+            </div>
+          </SidebarProvider>
         </WhereAreYouModalContext.Provider>
       </NavigationContext.Provider>
     </MapDataContext.Provider>

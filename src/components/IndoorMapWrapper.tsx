@@ -9,8 +9,6 @@ import {
   ObjectItem,
 } from "../utils/types";
 import { MapBackground, Paths, Positions, Objects } from "./IndoorMap";
-import { graphData } from "@/store/graphData";
-import { graphDataF2 } from "@/store/graphDataF2";
 
 import Controls from "./MapControls";
 import ObjectDetailsModal from "./Modals/ObjectDetailsModal";
@@ -18,38 +16,41 @@ import { toast } from "react-toastify";
 
 // Quick dev toggle to log SVG coordinates on click for alignment debugging
 const DEV_LOG_COORDS = false;
+// Debug mode to show all vertices with labels and click feedback
+const DEBUG_VERTICES = false;
+const FLOOR_CENTERS: Record<string, { x: number; y: number }> = {
+  F1: { x: 3800.09, y: 10249.4 },
+  F2: { x: 4524.7432 / 2, y: 6733.5117 / 2 },
+};
 
 function IndoorMapWrapper() {
   const [modalOpen, setModalOpen] = useState(false);
   const [object, setObject] = useState<ObjectItem>({} as ObjectItem);
+  const [clickedVertex, setClickedVertex] = useState<string | null>(null);
   const transformRef = useRef<any>(null);
   const positionRadius = isMobile ? 80 : 60;
+  const minZoomLevel = isMobile ? 1.5 : 1.0;
+  const defaultZoomLevel = isMobile ? 3 : 2.5;
   const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
+  const previousFloorRef = useRef<string>(currentFloor);
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const { setModalState } = useContext(WhereAreYouModalContext) || {};
 
   // Get current user position and zoom to it
   useEffect(() => {
     if (transformRef.current && !isEditMode) {
-      const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
-      const userVertex = currentGraphData.vertices.find(
-        (v) => v.id === navigation.start
+      const floorCenter = FLOOR_CENTERS[currentFloor] || FLOOR_CENTERS.F1;
+      transformRef.current?.setTransform(
+        -floorCenter.x * minZoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
+        -floorCenter.y * minZoomLevel + window.innerHeight / 2,
+        minZoomLevel,
+        0
       );
-
-      if (userVertex) {
-        // Center on user position with zoom level
-        const zoomLevel = isMobile ? 3 : 2.5;
-        transformRef.current.setTransform(
-          -userVertex.cx * zoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
-          -userVertex.cy * zoomLevel + window.innerHeight / 2,
-          zoomLevel,
-          0
-        );
-      }
+      previousFloorRef.current = currentFloor;
     }
-  }, [navigation.start, isEditMode, currentFloor]);
+  }, [currentFloor, isEditMode]);
   async function handleObjectClick(e: React.MouseEvent<SVGPathElement>) {
     if (!isEditMode) {
       const targetId = (e.target as HTMLElement).id;
@@ -63,8 +64,15 @@ function IndoorMapWrapper() {
     }
   }
   const handlePositionClick = (e: React.MouseEvent<SVGPathElement>) => {
+    const vertexId = (e.target as HTMLElement).id;
+    
+    if (DEBUG_VERTICES) {
+      setClickedVertex(vertexId);
+      // Clear the message after 3 seconds
+      setTimeout(() => setClickedVertex(null), 3000);
+    }
+    
     if (isEditMode) {
-      const vertexId = (e.target as HTMLElement).id;
       setNavigation({ start: vertexId });
       setIsEditMode(false);
     }
@@ -87,6 +95,11 @@ function IndoorMapWrapper() {
           Click the map to log SVG coords in console
         </div>
       )}
+      {DEBUG_VERTICES && clickedVertex && (
+        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 z-50 bg-teal-700 text-white rounded-lg px-6 py-3 text-lg font-bold shadow-lg">
+          Clicked vertex: {clickedVertex}
+        </div>
+      )}
       <ObjectDetailsModal
         open={modalOpen}
         object={object}
@@ -95,12 +108,13 @@ function IndoorMapWrapper() {
       />
 
       <TransformWrapper
+        key={currentFloor}
         ref={transformRef}
         centerOnInit
-        minScale={isMobile ? 2.5 : 2.0}
+        minScale={minZoomLevel}
         maxScale={isMobile ? 5 : 6}
         doubleClick={{ mode: "reset" }}
-        initialScale={isMobile ? 3 : 2.5}
+        initialScale={defaultZoomLevel}
         smooth={true}
         wheel={{ smoothStep: 0.01 }}
         limitToBounds={true}
@@ -128,9 +142,12 @@ function IndoorMapWrapper() {
               className={
                 isEditMode
                   ? "opacity-100 cursor-pointer hover:fill-[#488af4] "
+                  : DEBUG_VERTICES
+                  ? "opacity-100 cursor-pointer hover:fill-[#488af4]"
                   : "opacity-0"
               }
               navigation={navigation}
+              debugMode={DEBUG_VERTICES}
             />
           </MapBackground>
         </TransformComponent>

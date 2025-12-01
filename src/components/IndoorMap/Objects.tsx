@@ -3,6 +3,7 @@ import { NavigationContext } from "@/pages/Map";
 import { NavigationContextType } from "@/utils/types";
 import { clickables } from "@/data/clickables";
 import roomsCatalog from "@/data/roomsCatalog";
+import overlayTransforms from "@/config/overlayTransforms";
 
 interface ObjectsProps {
   handleObjectClick: (e: React.MouseEvent<SVGPathElement>) => void;
@@ -11,6 +12,7 @@ interface ObjectsProps {
 
 function Objects({ handleObjectClick, className }: ObjectsProps) {
   const { currentFloor } = useContext(NavigationContext) as NavigationContextType;
+  const t = overlayTransforms[(currentFloor as "F1" | "F2") || "F1"];
 
   const shapes = useMemo(() => {
     return clickables
@@ -24,7 +26,7 @@ function Objects({ handleObjectClick, className }: ObjectsProps) {
   }, [currentFloor]);
 
   return (
-    <g id="Objects">
+    <g id="Objects" transform={`translate(${t.translateX} ${t.translateY}) scale(${t.scaleX} ${t.scaleY})`}>
       {shapes.map((c) => (
         <path
           key={c.roomId}

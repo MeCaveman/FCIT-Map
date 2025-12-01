@@ -1,0 +1,1014 @@
+[
+  {
+    "clickableId": "15E36",
+    "currentRoomId": "15E36",
+    "nearestVertex": "v54",
+    "nearestRoomId": "15E36",
+    "distance": 340,
+    "centroid": {
+      "x": 4046,
+      "y": 6729
+    }
+  },
+  {
+    "clickableId": "15F02",
+    "currentRoomId": "15F02",
+    "nearestVertex": "v11",
+    "nearestRoomId": "15F13A",
+    "distance": 104,
+    "centroid": {
+      "x": 2631,
+      "y": 9939
+    }
+  },
+  {
+    "clickableId": "15F03",
+    "currentRoomId": "15F03",
+    "nearestVertex": "v14",
+    "nearestRoomId": "15F04A",
+    "distance": 349,
+    "centroid": {
+      "x": 2631,
+      "y": 10260
+    }
+  },
+  {
+    "clickableId": "15F05A",
+    "currentRoomId": "15F05A",
+    "nearestVertex": "v26",
+    "nearestRoomId": "15F11",
+    "distance": 219,
+    "centroid": {
+      "x": 737,
+      "y": 10027
+    }
+  },
+  {
+    "clickableId": "15F07",
+    "currentRoomId": "15F07",
+    "nearestVertex": "v35",
+    "nearestRoomId": "15FS02",
+    "distance": 235,
+    "centroid": {
+      "x": 109,
+      "y": 9939
+    }
+  },
+  {
+    "clickableId": "15I12-A",
+    "currentRoomId": "15I12-A",
+    "nearestVertex": "v22",
+    "nearestRoomId": "15F05B",
+    "distance": 777,
+    "centroid": {
+      "x": 820,
+      "y": 9071
+    }
+  },
+  {
+    "clickableId": "15I13-A",
+    "currentRoomId": "15I13-A",
+    "nearestVertex": "v16",
+    "nearestRoomId": "15F13B",
+    "distance": 703,
+    "centroid": {
+      "x": 1860,
+      "y": 9135
+    }
+  },
+  {
+    "clickableId": "15I15-A",
+    "currentRoomId": "15I15-A",
+    "nearestVertex": "v47",
+    "nearestRoomId": "15F15",
+    "distance": 408,
+    "centroid": {
+      "x": 2746,
+      "y": 9129
+    }
+  },
+  {
+    "clickableId": "204",
+    "currentRoomId": "204",
+    "nearestVertex": "v186",
+    "nearestRoomId": "15I29",
+    "distance": 784,
+    "centroid": {
+      "x": 1976,
+      "y": 2717
+    }
+  },
+  {
+    "clickableId": "205",
+    "currentRoomId": "205",
+    "nearestVertex": "v156",
+    "nearestRoomId": "15I22A",
+    "distance": 694,
+    "centroid": {
+      "x": 1688,
+      "y": 2717
+    }
+  },
+  {
+    "clickableId": "211",
+    "currentRoomId": "211",
+    "nearestVertex": "v133",
+    "nearestRoomId": "15I24",
+    "distance": 411,
+    "centroid": {
+      "x": 1372,
+      "y": 4019
+    }
+  },
+  {
+    "clickableId": "212",
+    "currentRoomId": "212",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 374,
+    "centroid": {
+      "x": 1686,
+      "y": 4019
+    }
+  },
+  {
+    "clickableId": "213",
+    "currentRoomId": "213",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 344,
+    "centroid": {
+      "x": 1976,
+      "y": 4019
+    }
+  },
+  {
+    "clickableId": "214",
+    "currentRoomId": "214",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 530,
+    "centroid": {
+      "x": 2285,
+      "y": 4019
+    }
+  },
+  {
+    "clickableId": "216",
+    "currentRoomId": "216",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 814,
+    "centroid": {
+      "x": 1979,
+      "y": 3539
+    }
+  },
+  {
+    "clickableId": "218",
+    "currentRoomId": "218",
+    "nearestVertex": "v149",
+    "nearestRoomId": "15I23A",
+    "distance": 419,
+    "centroid": {
+      "x": 1395,
+      "y": 3547
+    }
+  },
+  {
+    "clickableId": "219",
+    "currentRoomId": "219",
+    "nearestVertex": "v153",
+    "nearestRoomId": "15I23B",
+    "distance": 307,
+    "centroid": {
+      "x": 1395,
+      "y": 3189
+    }
+  },
+  {
+    "clickableId": "220",
+    "currentRoomId": "220",
+    "nearestVertex": "v153",
+    "nearestRoomId": "15I23B",
+    "distance": 601,
+    "centroid": {
+      "x": 1688,
+      "y": 3189
+    }
+  },
+  {
+    "clickableId": "229",
+    "currentRoomId": "229",
+    "nearestVertex": "v165",
+    "nearestRoomId": "15I24",
+    "distance": 529,
+    "centroid": {
+      "x": 314,
+      "y": 1908
+    }
+  },
+  {
+    "clickableId": "230",
+    "currentRoomId": "230",
+    "nearestVertex": "v158",
+    "nearestRoomId": "15I17",
+    "distance": 558,
+    "centroid": {
+      "x": 314,
+      "y": 2191
+    }
+  },
+  {
+    "clickableId": "234",
+    "currentRoomId": "234",
+    "nearestVertex": "v142",
+    "nearestRoomId": "15I09",
+    "distance": 180,
+    "centroid": {
+      "x": 312,
+      "y": 4767
+    }
+  },
+  {
+    "clickableId": "235",
+    "currentRoomId": "235",
+    "nearestVertex": "v143",
+    "nearestRoomId": "ele4",
+    "distance": 263,
+    "centroid": {
+      "x": 312,
+      "y": 5034
+    }
+  },
+  {
+    "clickableId": "240",
+    "currentRoomId": "240",
+    "nearestVertex": "v144",
+    "nearestRoomId": "15I08",
+    "distance": 94,
+    "centroid": {
+      "x": 725,
+      "y": 4816
+    }
+  },
+  {
+    "clickableId": "241",
+    "currentRoomId": "241",
+    "nearestVertex": "v142",
+    "nearestRoomId": "15I09",
+    "distance": 304,
+    "centroid": {
+      "x": 725,
+      "y": 4515
+    }
+  },
+  {
+    "clickableId": "245",
+    "currentRoomId": "245",
+    "nearestVertex": "v71",
+    "nearestRoomId": "15F29A",
+    "distance": 463,
+    "centroid": {
+      "x": 1374,
+      "y": 6564
+    }
+  },
+  {
+    "clickableId": "246",
+    "currentRoomId": "246",
+    "nearestVertex": "v69",
+    "nearestRoomId": "15F30B",
+    "distance": 432,
+    "centroid": {
+      "x": 1670,
+      "y": 6571
+    }
+  },
+  {
+    "clickableId": "247",
+    "currentRoomId": "247",
+    "nearestVertex": "v69",
+    "nearestRoomId": "15F30B",
+    "distance": 526,
+    "centroid": {
+      "x": 1985,
+      "y": 6571
+    }
+  },
+  {
+    "clickableId": "250",
+    "currentRoomId": "250",
+    "nearestVertex": "v98",
+    "nearestRoomId": "15FI05",
+    "distance": 465,
+    "centroid": {
+      "x": 2572,
+      "y": 5337
+    }
+  },
+  {
+    "clickableId": "253",
+    "currentRoomId": "253",
+    "nearestVertex": "v131",
+    "nearestRoomId": "15I07-B",
+    "distance": 638,
+    "centroid": {
+      "x": 1378,
+      "y": 5315
+    }
+  },
+  {
+    "clickableId": "256",
+    "currentRoomId": "256",
+    "nearestVertex": "v144",
+    "nearestRoomId": "15I08",
+    "distance": 1039,
+    "centroid": {
+      "x": 1386,
+      "y": 5735
+    }
+  },
+  {
+    "clickableId": "257",
+    "currentRoomId": "257",
+    "nearestVertex": "v129",
+    "nearestRoomId": "15I07-A",
+    "distance": 1058,
+    "centroid": {
+      "x": 1705,
+      "y": 5733
+    }
+  },
+  {
+    "clickableId": "258",
+    "currentRoomId": "258",
+    "nearestVertex": "v96",
+    "nearestRoomId": "e2",
+    "distance": 924,
+    "centroid": {
+      "x": 1990,
+      "y": 5733
+    }
+  },
+  {
+    "clickableId": "260",
+    "currentRoomId": "260",
+    "nearestVertex": "v69",
+    "nearestRoomId": "15F30B",
+    "distance": 901,
+    "centroid": {
+      "x": 1698,
+      "y": 6101
+    }
+  },
+  {
+    "clickableId": "261",
+    "currentRoomId": "261",
+    "nearestVertex": "v69",
+    "nearestRoomId": "15F30B",
+    "distance": 951,
+    "centroid": {
+      "x": 1991,
+      "y": 6101
+    }
+  },
+  {
+    "clickableId": "272",
+    "currentRoomId": "272",
+    "nearestVertex": "v119",
+    "nearestRoomId": "15I40",
+    "distance": 219,
+    "centroid": {
+      "x": 2569,
+      "y": 4266
+    }
+  },
+  {
+    "clickableId": "e3",
+    "currentRoomId": "e3",
+    "nearestVertex": "v18",
+    "nearestRoomId": "15F04B",
+    "distance": 57,
+    "centroid": {
+      "x": 1801,
+      "y": 10040
+    }
+  },
+  {
+    "clickableId": "placeholder-10",
+    "currentRoomId": "placeholder-10",
+    "nearestVertex": "v47",
+    "nearestRoomId": "15F15",
+    "distance": 366,
+    "centroid": {
+      "x": 2549,
+      "y": 8820
+    }
+  },
+  {
+    "clickableId": "placeholder-11",
+    "currentRoomId": "placeholder-11",
+    "nearestVertex": "v46",
+    "nearestRoomId": "15F16",
+    "distance": 432,
+    "centroid": {
+      "x": 2549,
+      "y": 8033
+    }
+  },
+  {
+    "clickableId": "placeholder-13",
+    "currentRoomId": "placeholder-13",
+    "nearestVertex": "v61",
+    "nearestRoomId": "15FS03",
+    "distance": 46,
+    "centroid": {
+      "x": 2898,
+      "y": 6772
+    }
+  },
+  {
+    "clickableId": "placeholder-14",
+    "currentRoomId": "placeholder-14",
+    "nearestVertex": "v63",
+    "nearestRoomId": "15F17",
+    "distance": 91,
+    "centroid": {
+      "x": 2732,
+      "y": 7383
+    }
+  },
+  {
+    "clickableId": "placeholder-15",
+    "currentRoomId": "placeholder-15",
+    "nearestVertex": "v67",
+    "nearestRoomId": "15F18",
+    "distance": 91,
+    "centroid": {
+      "x": 2001,
+      "y": 7383
+    }
+  },
+  {
+    "clickableId": "placeholder-16",
+    "currentRoomId": "placeholder-16",
+    "nearestVertex": "v73",
+    "nearestRoomId": "15F19",
+    "distance": 97,
+    "centroid": {
+      "x": 1385,
+      "y": 7383
+    }
+  },
+  {
+    "clickableId": "placeholder-17",
+    "currentRoomId": "placeholder-17",
+    "nearestVertex": "v84",
+    "nearestRoomId": "15F22",
+    "distance": 352,
+    "centroid": {
+      "x": 729,
+      "y": 7383
+    }
+  },
+  {
+    "clickableId": "placeholder-18",
+    "currentRoomId": "placeholder-18",
+    "nearestVertex": "v77",
+    "nearestRoomId": "15F29B",
+    "distance": 617,
+    "centroid": {
+      "x": 866,
+      "y": 6383
+    }
+  },
+  {
+    "clickableId": "placeholder-19",
+    "currentRoomId": "placeholder-19",
+    "nearestVertex": "v69",
+    "nearestRoomId": "15F30B",
+    "distance": 620,
+    "centroid": {
+      "x": 1652,
+      "y": 6383
+    }
+  },
+  {
+    "clickableId": "placeholder-20",
+    "currentRoomId": "placeholder-20",
+    "nearestVertex": "v99",
+    "nearestRoomId": "15F34",
+    "distance": 434,
+    "centroid": {
+      "x": 2615,
+      "y": 6380
+    }
+  },
+  {
+    "clickableId": "placeholder-21",
+    "currentRoomId": "placeholder-21",
+    "nearestVertex": "v82",
+    "nearestRoomId": "15FS04",
+    "distance": 354,
+    "centroid": {
+      "x": 107,
+      "y": 6821
+    }
+  },
+  {
+    "clickableId": "placeholder-22",
+    "currentRoomId": "placeholder-22",
+    "nearestVertex": "v82",
+    "nearestRoomId": "15FS04",
+    "distance": 260,
+    "centroid": {
+      "x": 111,
+      "y": 7284
+    }
+  },
+  {
+    "clickableId": "placeholder-23",
+    "currentRoomId": "placeholder-23",
+    "nearestVertex": "v99",
+    "nearestRoomId": "15F34",
+    "distance": 358,
+    "centroid": {
+      "x": 2604,
+      "y": 6187
+    }
+  },
+  {
+    "clickableId": "placeholder-24",
+    "currentRoomId": "placeholder-24",
+    "nearestVertex": "v98",
+    "nearestRoomId": "15FI05",
+    "distance": 425,
+    "centroid": {
+      "x": 2604,
+      "y": 5362
+    }
+  },
+  {
+    "clickableId": "placeholder-25",
+    "currentRoomId": "placeholder-25",
+    "nearestVertex": "v104",
+    "nearestRoomId": "ele5",
+    "distance": 267,
+    "centroid": {
+      "x": 3320,
+      "y": 4719
+    }
+  },
+  {
+    "clickableId": "placeholder-26",
+    "currentRoomId": "placeholder-26",
+    "nearestVertex": "v103",
+    "nearestRoomId": "ele6",
+    "distance": 263,
+    "centroid": {
+      "x": 3320,
+      "y": 4932
+    }
+  },
+  {
+    "clickableId": "placeholder-27",
+    "currentRoomId": "placeholder-27",
+    "nearestVertex": "v104",
+    "nearestRoomId": "ele5",
+    "distance": 472,
+    "centroid": {
+      "x": 4037,
+      "y": 4676
+    }
+  },
+  {
+    "clickableId": "placeholder-28",
+    "currentRoomId": "placeholder-28",
+    "nearestVertex": "v104",
+    "nearestRoomId": "ele5",
+    "distance": 465,
+    "centroid": {
+      "x": 4037,
+      "y": 4866
+    }
+  },
+  {
+    "clickableId": "placeholder-29",
+    "currentRoomId": "placeholder-29",
+    "nearestVertex": "v112",
+    "nearestRoomId": "15H42B",
+    "distance": 492,
+    "centroid": {
+      "x": 4240,
+      "y": 3742
+    }
+  },
+  {
+    "clickableId": "placeholder-30",
+    "currentRoomId": "placeholder-30",
+    "nearestVertex": "v123",
+    "nearestRoomId": "15I06",
+    "distance": 399,
+    "centroid": {
+      "x": 2696,
+      "y": 5078
+    }
+  },
+  {
+    "clickableId": "placeholder-31",
+    "currentRoomId": "placeholder-31",
+    "nearestVertex": "v125",
+    "nearestRoomId": "15I05",
+    "distance": 37,
+    "centroid": {
+      "x": 2696,
+      "y": 4648
+    }
+  },
+  {
+    "clickableId": "placeholder-32",
+    "currentRoomId": "placeholder-32",
+    "nearestVertex": "v125",
+    "nearestRoomId": "15I05",
+    "distance": 332,
+    "centroid": {
+      "x": 3054,
+      "y": 4665
+    }
+  },
+  {
+    "clickableId": "placeholder-33",
+    "currentRoomId": "placeholder-33",
+    "nearestVertex": "v119",
+    "nearestRoomId": "15I40",
+    "distance": 616,
+    "centroid": {
+      "x": 2607,
+      "y": 3754
+    }
+  },
+  {
+    "clickableId": "placeholder-34",
+    "currentRoomId": "placeholder-34",
+    "nearestVertex": "v149",
+    "nearestRoomId": "15I23A",
+    "distance": 500,
+    "centroid": {
+      "x": 1506,
+      "y": 3834
+    }
+  },
+  {
+    "clickableId": "placeholder-35",
+    "currentRoomId": "placeholder-35",
+    "nearestVertex": "v144",
+    "nearestRoomId": "15I08",
+    "distance": 183,
+    "centroid": {
+      "x": 835,
+      "y": 4725
+    }
+  },
+  {
+    "clickableId": "placeholder-36",
+    "currentRoomId": "placeholder-36",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 393,
+    "centroid": {
+      "x": 2022,
+      "y": 4708
+    }
+  },
+  {
+    "clickableId": "placeholder-37",
+    "currentRoomId": "placeholder-37",
+    "nearestVertex": "v142",
+    "nearestRoomId": "15I09",
+    "distance": 383,
+    "centroid": {
+      "x": 93,
+      "y": 4631
+    }
+  },
+  {
+    "clickableId": "placeholder-38",
+    "currentRoomId": "placeholder-38",
+    "nearestVertex": "v151",
+    "nearestRoomId": "15I15",
+    "distance": 642,
+    "centroid": {
+      "x": 121,
+      "y": 3263
+    }
+  },
+  {
+    "clickableId": "placeholder-39",
+    "currentRoomId": "placeholder-39",
+    "nearestVertex": "v158",
+    "nearestRoomId": "15I17",
+    "distance": 654,
+    "centroid": {
+      "x": 121,
+      "y": 2636
+    }
+  },
+  {
+    "clickableId": "placeholder-40",
+    "currentRoomId": "placeholder-40",
+    "nearestVertex": "v158",
+    "nearestRoomId": "15I17",
+    "distance": 753,
+    "centroid": {
+      "x": 121,
+      "y": 2128
+    }
+  },
+  {
+    "clickableId": "placeholder-41",
+    "currentRoomId": "placeholder-41",
+    "nearestVertex": "v165",
+    "nearestRoomId": "15I24",
+    "distance": 728,
+    "centroid": {
+      "x": 116,
+      "y": 1787
+    }
+  },
+  {
+    "clickableId": "placeholder-42",
+    "currentRoomId": "placeholder-42",
+    "nearestVertex": "v160",
+    "nearestRoomId": "15I22B",
+    "distance": 290,
+    "centroid": {
+      "x": 972,
+      "y": 2127
+    }
+  },
+  {
+    "clickableId": "placeholder-43",
+    "currentRoomId": "placeholder-43",
+    "nearestVertex": "v160",
+    "nearestRoomId": "15I22B",
+    "distance": 106,
+    "centroid": {
+      "x": 1035,
+      "y": 2518
+    }
+  },
+  {
+    "clickableId": "placeholder-44",
+    "currentRoomId": "placeholder-44",
+    "nearestVertex": "v160",
+    "nearestRoomId": "15I22B",
+    "distance": 495,
+    "centroid": {
+      "x": 1505,
+      "y": 2518
+    }
+  },
+  {
+    "clickableId": "placeholder-45",
+    "currentRoomId": "placeholder-45",
+    "nearestVertex": "v153",
+    "nearestRoomId": "15I23B",
+    "distance": 433,
+    "centroid": {
+      "x": 1508,
+      "y": 3288
+    }
+  },
+  {
+    "clickableId": "placeholder-46",
+    "currentRoomId": "placeholder-46",
+    "nearestVertex": "v153",
+    "nearestRoomId": "15I23B",
+    "distance": 129,
+    "centroid": {
+      "x": 1042,
+      "y": 3305
+    }
+  },
+  {
+    "clickableId": "placeholder-47",
+    "currentRoomId": "placeholder-47",
+    "nearestVertex": "v189",
+    "nearestRoomId": "15I36",
+    "distance": 558,
+    "centroid": {
+      "x": 2184,
+      "y": 2501
+    }
+  },
+  {
+    "clickableId": "placeholder-48",
+    "currentRoomId": "placeholder-48",
+    "nearestVertex": "v189",
+    "nearestRoomId": "15I36",
+    "distance": 93,
+    "centroid": {
+      "x": 2201,
+      "y": 2001
+    }
+  },
+  {
+    "clickableId": "placeholder-49",
+    "currentRoomId": "placeholder-49",
+    "nearestVertex": "v186",
+    "nearestRoomId": "15I29",
+    "distance": 486,
+    "centroid": {
+      "x": 1677,
+      "y": 2149
+    }
+  },
+  {
+    "clickableId": "placeholder-50",
+    "currentRoomId": "placeholder-50",
+    "nearestVertex": "v182",
+    "nearestRoomId": "15IS23",
+    "distance": 46,
+    "centroid": {
+      "x": 2343,
+      "y": 1558
+    }
+  },
+  {
+    "clickableId": "placeholder-51",
+    "currentRoomId": "placeholder-51",
+    "nearestVertex": "v183",
+    "nearestRoomId": "ele1",
+    "distance": 227,
+    "centroid": {
+      "x": 1809,
+      "y": 1572
+    }
+  },
+  {
+    "clickableId": "placeholder-52",
+    "currentRoomId": "placeholder-52",
+    "nearestVertex": "v185",
+    "nearestRoomId": "ele2",
+    "distance": 235,
+    "centroid": {
+      "x": 1809,
+      "y": 1771
+    }
+  },
+  {
+    "clickableId": "placeholder-53",
+    "currentRoomId": "placeholder-53",
+    "nearestVertex": "v205",
+    "nearestRoomId": "15I06B",
+    "distance": 1123,
+    "centroid": {
+      "x": 154,
+      "y": 751
+    }
+  },
+  {
+    "clickableId": "placeholder-54",
+    "currentRoomId": "placeholder-54",
+    "nearestVertex": "v200",
+    "nearestRoomId": "15I04",
+    "distance": 409,
+    "centroid": {
+      "x": 2383,
+      "y": 76
+    }
+  },
+  {
+    "clickableId": "placeholder-55",
+    "currentRoomId": "placeholder-55",
+    "nearestVertex": "v205",
+    "nearestRoomId": "15I06B",
+    "distance": 362,
+    "centroid": {
+      "x": 1225,
+      "y": 116
+    }
+  },
+  {
+    "clickableId": "placeholder-56",
+    "currentRoomId": "placeholder-56",
+    "nearestVertex": "v208",
+    "nearestRoomId": "15I03",
+    "distance": 495,
+    "centroid": {
+      "x": 3174,
+      "y": 76
+    }
+  },
+  {
+    "clickableId": "placeholder-57",
+    "currentRoomId": "placeholder-57",
+    "nearestVertex": "v194",
+    "nearestRoomId": "15I01",
+    "distance": 354,
+    "centroid": {
+      "x": 2971,
+      "y": 775
+    }
+  },
+  {
+    "clickableId": "placeholder-58",
+    "currentRoomId": "placeholder-58",
+    "nearestVertex": "v153",
+    "nearestRoomId": "15I23B",
+    "distance": 1092,
+    "centroid": {
+      "x": 2177,
+      "y": 3112
+    }
+  },
+  {
+    "clickableId": "placeholder-59",
+    "currentRoomId": "placeholder-59",
+    "nearestVertex": "v82",
+    "nearestRoomId": "15FS04",
+    "distance": 764,
+    "centroid": {
+      "x": 127,
+      "y": 6370
+    }
+  },
+  {
+    "clickableId": "placeholder-6",
+    "currentRoomId": "placeholder-6",
+    "nearestVertex": "v35",
+    "nearestRoomId": "15FS02",
+    "distance": 763,
+    "centroid": {
+      "x": 129,
+      "y": 9053
+    }
+  },
+  {
+    "clickableId": "placeholder-60",
+    "currentRoomId": "placeholder-60",
+    "nearestVertex": "v142",
+    "nearestRoomId": "15I09",
+    "distance": 312,
+    "centroid": {
+      "x": 431,
+      "y": 4374
+    }
+  },
+  {
+    "clickableId": "placeholder-61",
+    "currentRoomId": "placeholder-61",
+    "nearestVertex": "v149",
+    "nearestRoomId": "15I23A",
+    "distance": 107,
+    "centroid": {
+      "x": 1037,
+      "y": 3834
+    }
+  },
+  {
+    "clickableId": "placeholder-62",
+    "currentRoomId": "placeholder-62",
+    "nearestVertex": "v193",
+    "nearestRoomId": "15I27",
+    "distance": 48,
+    "centroid": {
+      "x": 2971,
+      "y": 1292
+    }
+  },
+  {
+    "clickableId": "placeholder-63",
+    "currentRoomId": "placeholder-63",
+    "nearestVertex": "v205",
+    "nearestRoomId": "15I06B",
+    "distance": 1154,
+    "centroid": {
+      "x": 147,
+      "y": 116
+    }
+  },
+  {
+    "clickableId": "placeholder-64",
+    "currentRoomId": "placeholder-64",
+    "nearestVertex": "v127",
+    "nearestRoomId": "15I25",
+    "distance": 530,
+    "centroid": {
+      "x": 2205,
+      "y": 3937
+    }
+  },
+  {
+    "clickableId": "placeholder-65",
+    "currentRoomId": "placeholder-65",
+    "nearestVertex": "v35",
+    "nearestRoomId": "15FS02",
+    "distance": 335,
+    "centroid": {
+      "x": 125,
+      "y": 9510
+    }
+  }
+]

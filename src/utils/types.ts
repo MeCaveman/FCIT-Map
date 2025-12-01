@@ -9,6 +9,8 @@ export interface ObjectItem {
   uniqueId?: string;
   // Optional floor identifier, e.g., "F1" or "F2"
   floor?: string;
+  // Optional vertex ID for navigation
+  vertexId?: string;
 }
 export interface Category {
   id: string;
@@ -39,8 +41,8 @@ export interface MapDataContextType {
   objects: ObjectItem[];
   categories: Category[];
   beacons?: Beacon[];
-  isLoading?: boolean;
-  refetchData: () => void;
+  refetchData: () => Promise<void>;
+  isLoading: boolean;
 }
 
 export interface AdminContextType {

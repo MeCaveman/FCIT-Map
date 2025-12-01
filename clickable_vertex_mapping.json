@@ -1,0 +1,92 @@
+[
+  {
+    "clickableRoomId": "15E36",
+    "nearestVertexId": "v54",
+    "nearestVertexRoomId": "15E36",
+    "distance": 244,
+    "centroid": {
+      "x": 4211,
+      "y": 6837
+    }
+  },
+  {
+    "clickableRoomId": "15F02",
+    "nearestVertexId": "v11",
+    "nearestVertexRoomId": "15F13A",
+    "distance": 225,
+    "centroid": {
+      "x": 2703,
+      "y": 10041
+    }
+  },
+  {
+    "clickableRoomId": "15F03",
+    "nearestVertexId": "v14",
+    "nearestVertexRoomId": "15F04A",
+    "distance": 462,
+    "centroid": {
+      "x": 2703,
+      "y": 10348
+    }
+  },
+  {
+    "clickableRoomId": "15F05A",
+    "nearestVertexId": "v22",
+    "nearestVertexRoomId": "15F05B",
+    "distance": 354,
+    "centroid": {
+      "x": 1028,
+      "y": 10182
+    }
+  },
+  {
+    "clickableRoomId": "15F07",
+    "nearestVertexId": "v31",
+    "nearestVertexRoomId": "15F07",
+    "distance": 296,
+    "centroid": {
+      "x": 190,
+      "y": 10084
+    }
+  },
+  {
+    "clickableRoomId": "15I12-A",
+    "nearestVertexId": "v22",
+    "nearestVertexRoomId": "15F05B",
+    "distance": 596,
+    "centroid": {
+      "x": 1110,
+      "y": 9263
+    }
+  },
+  {
+    "clickableRoomId": "15I13-A",
+    "nearestVertexId": "v16",
+    "nearestVertexRoomId": "15F13B",
+    "distance": 614,
+    "centroid": {
+      "x": 2118,
+      "y": 9290
+    }
+  },
+  {
+    "clickableRoomId": "15I15-A",
+    "nearestVertexId": "v47",
+    "nearestVertexRoomId": "15F15",
+    "distance": 537,
+    "centroid": {
+      "x": 3004,
+      "y": 9284
+    }
+  },
+  {
+    "clickableRoomId": "e3",
+    "nearestVertexId": "v18",
+    "nearestVertexRoomId": "15F04B",
+    "distance": 295,
+    "centroid": {
+      "x": 2059,
+      "y": 10195
+    }
+  }
+]

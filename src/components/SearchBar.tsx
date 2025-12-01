@@ -1,11 +1,7 @@
 import Tooltip from "@/components/ui/Tooltip";
-import {
-  //navigateToObject,
-  navigateWithDelay as navigationTestAll,
-  //findNearestObjectByCategory,
-} from "@/utils/navigationHelper";
+import { navigateWithDelay as navigationTestAll } from "@/utils/navigationHelper";
 import React, { useContext, useEffect, useRef, useState } from "react";
-//import { FiCircle, FiNavigation } from "react-icons/fi";
+import { FiNavigation } from "react-icons/fi";
 import { useOnClickOutside } from "usehooks-ts";
 import { MapDataContext, NavigationContext, WhereAreYouModalContext } from "../pages/Map";
 import {
@@ -195,11 +191,6 @@ function SearchBar() {
     event.currentTarget.select();
   }
 
-  /*function handleInputBlur() {
-    setIsAutocomplete(false);
-    setSelectedIndex(-1);
-  }*/
-
   function handleSearch(inputValue: string) {
     const trimmed = inputValue.trim().toLowerCase();
 
@@ -252,9 +243,9 @@ function SearchBar() {
   return (
     <div className="md:w-80 w-full flex flex-row">
       <div className="flex flex-inline rounded w-full">
-        <div className="h-12 w-12 center flex-none rounded-l bg-white text-blue-500 text-[8px] ">
+        <div className="h-12 w-12 center flex-none rounded-l bg-white text-teal-700 text-[8px] ">
           <div className="w-full h-8 center border-gray-300 border-r">
-            <img src="/src/assets/img/fcit-logo.svg" alt="FCIT" className="w-6 h-6" />
+            <img src="/src/assets/img/FCITMapLogo.svg" alt="FCIT" className="w-6 h-6" />
           </div>
         </div>
         <div className="flex w-full relative">
@@ -298,7 +289,7 @@ function SearchBar() {
                       }}
                       className={`px-3 py-1 text-xs rounded-full whitespace-nowrap transition-colors flex-shrink-0 select-none ${
                         activeFilter === cat
-                          ? "bg-blue-500 text-white"
+                          ? "bg-teal-700 text-white"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                       }`}
                     >
@@ -314,7 +305,7 @@ function SearchBar() {
                     key={index}
                     className={`cursor-pointer p-2 border-t hover:bg-gray-200 active:bg-gray-300 ${
                       selectedIndex === index
-                        ? "border-l-4 border-blue-500 bg-gray-200"
+                        ? "border-l-4 border-teal-700 bg-gray-200"
                         : ""
                     }`}
                     onMouseDown={() => handleSuggestionClick(obj)}
@@ -340,12 +331,13 @@ function SearchBar() {
         </div>
 
         <div className="">
-          <Tooltip content="Search" className="bg-blue-500">
+          <Tooltip content="Search" className="bg-teal-700">
             <button
-              className="h-12 w-12 flex flex-none center justify-center rounded-r bg-blue-500 text-white"
+              className="h-12 w-12 flex flex-none center justify-center rounded-r bg-teal-700 text-white"
               onClick={() => handleSearch(inputValue)}
               aria-label="search"
             >
+              <FiNavigation />
             </button>
           </Tooltip>
         </div>

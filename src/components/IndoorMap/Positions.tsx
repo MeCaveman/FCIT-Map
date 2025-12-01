@@ -10,12 +10,14 @@ interface PositionsProps {
   handlePositionClick: (e: React.MouseEvent<SVGPathElement>) => void;
   className: string;
   navigation?: NavigationContextType["navigation"];
+  debugMode?: boolean;
 }
 function Positions({
   positionRadius,
   handlePositionClick,
   className,
   navigation,
+  debugMode = false,
 }: PositionsProps) {
   const { currentFloor } = useContext(NavigationContext) as NavigationContextType;
   const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
@@ -44,17 +46,32 @@ function Positions({
         r={positionBackgroundRadius}
       />
       {currentGraphData.vertices.map((vertex) => (
-        <circle
-          // only allow click on positions that are not referring to an object
-          onClick={vertex.objectName ? () => {} : handlePositionClick}
-          key={vertex.id}
-          id={vertex.id}
-          // show only positions that are not referring to an object (e.g. shops, restrooms, etc.)
-          className={`position ${vertex.objectName ? "opacity-0" : className} ${isActivePosition(vertex.id) && "position-active opacity-100"}`}
-          cx={vertex.cx}
-          cy={vertex.cy}
-          r={scaledRadius}
-        />
+        <g key={vertex.id}>
+          <circle
+            // only allow click on positions that are not referring to an object
+            onClick={debugMode ? handlePositionClick : (vertex.objectName ? () => {} : handlePositionClick)}
+            id={vertex.id}
+            // show only positions that are not referring to an object (e.g. shops, restrooms, etc.)
+            className={`position ${vertex.objectName ? "opacity-0" : className} ${isActivePosition(vertex.id) && "position-active opacity-100"}`}
+            cx={vertex.cx}
+            cy={vertex.cy}
+            r={scaledRadius}
+          />
+          {debugMode && (
+            <text
+              x={vertex.cx}
+              y={vertex.cy - scaledRadius - 5}
+              fontSize={120 / t.scaleX}
+              fill="#000"
+              textAnchor="middle"
+              pointerEvents="none"
+              className="select-none font-mono font-bold"
+              style={{ textShadow: "0 0 5px white, 0 0 5px white, 0 0 5px white" }}
+            >
+              {vertex.id}
+            </text>
+          )}
+        </g>
       ))}
       {/* Circle animation */}
       <circle
