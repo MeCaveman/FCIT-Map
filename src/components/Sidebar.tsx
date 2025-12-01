@@ -1,6 +1,7 @@
 import logo from "../assets/img/FCITMapLogo.svg";
 import { ChevronRight, Search, MapPin } from "lucide-react";
 import { useContext, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   MapDataContextType,
   NavigationContextType,
@@ -32,6 +33,11 @@ function Sidebar() {
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const [searchQuery, setSearchQuery] = useState("");
   const [isRotating, setIsRotating] = useState(false);
+  const navigate = useNavigate();
+  
+  const handleLogoClick = () => {
+    navigate("/");
+  };
    
   // Filter to show rooms that are mapped to vertices OR are offices
   const navigatableObjects = useMemo(() => {
@@ -114,12 +120,20 @@ function Sidebar() {
     <SidebarPrimitive collapsible="icon" className="bg-white border-r border-gray-200">
       <SidebarHeader className="border-b border-gray-200 pb-4">
         <div className="flex items-center gap-3 px-2">
-          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10">
+          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10 cursor-pointer hover:bg-gray-200 transition-colors">
             <img
               src={logo}
               alt="FCIT Map"
               className={`w-10 h-10 object-contain group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:h-8 ${isRotating ? "rotate" : ""}`}
-              onClick={() => setIsRotating(true)}
+              onClick={(e) => {
+                if (e.detail === 2) {
+                  // Double click for rotation
+                  setIsRotating(true);
+                } else {
+                  // Single click for navigation
+                  handleLogoClick();
+                }
+              }}
               onAnimationEnd={() => setIsRotating(false)}
             />
           </div>
