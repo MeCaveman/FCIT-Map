@@ -5,6 +5,7 @@ import { ObjectItem } from "./types";
 import { graphData, VertexData } from "@/store/graphData";
 import { toast } from "react-toastify";
 import roomsCatalog from "@/data/roomsCatalog";
+import { processPathToManhattan } from "./pathProcessor";
 export let routeLength = 0;
 
 const findVertexByObjectId = (vertexId: string) =>
@@ -99,20 +100,21 @@ export function navigateToObject(
     return;
   }
 
-  const pathString = shortestPath
+  // Process path to Manhattan routing with wall avoidance
+  const manhattanWaypoints = processPathToManhattan(shortestPath, graphData.vertices);
+
+  // Build path string from waypoints
+  const pathString = manhattanWaypoints
     .slice(1)
-    .map((vertexId) => {
-      const vertex = graphData.vertices.find((v) => v.id === vertexId);
-      return vertex ? `L${vertex.cx} ${vertex.cy}` : "";
-    })
+    .map((point) => `L${point.x} ${point.y}`)
     .join(" ");
 
   const startVertex = graphData.vertices.find((v) => v.id === navigation.start);
   const navigationRoutePath = document.getElementById("navigation-route");
-  if (navigationRoutePath && startVertex) {
+  if (navigationRoutePath && startVertex && manhattanWaypoints.length > 0) {
     navigationRoutePath.setAttribute(
       "d",
-      `M${startVertex.cx} ${startVertex.cy} ${pathString}`
+      `M${manhattanWaypoints[0].x} ${manhattanWaypoints[0].y} ${pathString}`
     );
     console.log("navigationRoutePath", navigationRoutePath);
     navigationRoutePath.classList.remove("path-once", "path-active");

@@ -67,7 +67,7 @@ function parseSVGPath(pathD: string): LineSegment[] {
 /**
  * Extract all wall segments from clickable room geometries
  */
-function extractWallSegments(): LineSegment[] {
+export function extractWallSegments(): LineSegment[] {
   const allWalls: LineSegment[] = [];
 
   clickables.forEach((clickable) => {
