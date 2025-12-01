@@ -1,5 +1,5 @@
 import logo from "../assets/img/FCITMapLogo.svg";
-import { ChevronRight, Search } from "lucide-react";
+import { ChevronRight, Search, MapPin } from "lucide-react";
 import { useContext, useMemo, useState } from "react";
 import {
   MapDataContextType,
@@ -90,21 +90,21 @@ function Sidebar() {
     <SidebarPrimitive collapsible="icon" className="bg-white border-r border-gray-200">
       <SidebarHeader className="border-b border-gray-200 pb-4">
         <div className="flex items-center gap-3 px-2">
-          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0">
+          <div className="rounded-md w-12 h-12 bg-gray-100 flex items-center justify-center shadow-md shrink-0 group-data-[collapsible=icon]:w-10 group-data-[collapsible=icon]:h-10">
             <img
               src={logo}
               alt="FCIT Map"
-              className={`w-10 h-10 object-contain ${isRotating ? "rotate" : ""}`}
+              className={`w-10 h-10 object-contain group-data-[collapsible=icon]:w-8 group-data-[collapsible=icon]:h-8 ${isRotating ? "rotate" : ""}`}
               onClick={() => setIsRotating(true)}
               onAnimationEnd={() => setIsRotating(false)}
             />
           </div>
-          <div className="flex flex-col min-w-0">
+          <div className="flex flex-col min-w-0 group-data-[collapsible=icon]:hidden">
             <p className="text-lg font-semibold text-gray-900 truncate">FCIT Map</p>
             <p className="text-xs font-semibold text-[#225EA9] truncate">FCIT College Building Navigation</p>
           </div>
         </div>
-        <div className="px-2 pt-2">
+        <div className="px-2 pt-2 group-data-[collapsible=icon]:hidden">
           <div className="relative">
             <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
             <SidebarInput
@@ -136,19 +136,20 @@ function Sidebar() {
                       <SidebarMenuButton
                         onClick={() => handleObjectNavigation(item.name)}
                         tooltip={item.name}
-                        className="flex flex-col items-start gap-1 h-auto py-2 px-3"
+                        className="flex flex-col items-start gap-1 h-auto py-2 px-3 group-data-[collapsible=icon]:px-2 group-data-[collapsible=icon]:py-2 group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:items-center"
                       >
-                        <div className="flex items-center justify-between w-full">
+                        <MapPin className="h-4 w-4 text-teal-400 shrink-0 hidden group-data-[collapsible=icon]:block" />
+                        <div className="flex items-center justify-between w-full group-data-[collapsible=icon]:hidden">
                           <span className="text-sm font-semibold text-left">{item.name}</span>
                           <ChevronRight className="h-4 w-4 text-teal-400 shrink-0" />
                         </div>
                         {item.desc && (
-                          <span className="text-xs text-gray-600 text-left w-full truncate">
+                          <span className="text-xs text-gray-600 text-left w-full truncate group-data-[collapsible=icon]:hidden">
                             {item.desc}
                           </span>
                         )}
                         {item.floor && (
-                          <span className="text-[10px] text-gray-500">
+                          <span className="text-[10px] text-gray-500 group-data-[collapsible=icon]:hidden">
                             {item.floor === "F2" ? "Floor 2" : "Floor 1"}
                           </span>
                         )}

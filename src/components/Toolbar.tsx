@@ -25,7 +25,7 @@ function Toolbar() {
   }, [currentFloor]);
   return (
     <>
-      <div className="flex space-x-1 mb-4 h-12 relative">
+      <div className="flex space-x-1 mb-4 h-12 relative z-30">
         {isDesktop && <SidebarTrigger className="mr-2" />}
         <button
           onClick={handleHomeClick}
