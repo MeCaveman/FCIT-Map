@@ -243,11 +243,6 @@ function SearchBar() {
   return (
     <div className="md:w-80 w-full flex flex-row">
       <div className="flex flex-inline rounded w-full">
-        <div className="h-12 w-12 center flex-none rounded-l bg-white text-teal-700 text-[8px] ">
-          <div className="w-full h-8 center border-gray-300 border-r">
-            <img src="/src/assets/img/FCITMapLogo.svg" alt="FCIT" className="w-6 h-6" />
-          </div>
-        </div>
         <div className="flex w-full relative">
           <input
             className={`h-12 p-4 w-full flex-none text-gray-900 text-sm md:text-md ${
