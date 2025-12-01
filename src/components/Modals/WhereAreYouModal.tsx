@@ -21,11 +21,12 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   const findVertexForRoom = (room: RoomRecord) => {
     const normalizedId = room.id.toLowerCase();
     const normalizedName = room.name.toLowerCase();
+    const normalizedVertexId = room.vertexId?.toLowerCase();
     return (
       graphData.vertices.find((v) => v.objectName?.toLowerCase() === normalizedId) ||
       graphData.vertices.find((v) => v.objectName?.toLowerCase() === normalizedName) ||
-      (room.vertexId
-        ? graphData.vertices.find((v) => v.id.toLowerCase() === room.vertexId.toLowerCase())
+      (normalizedVertexId
+        ? graphData.vertices.find((v) => v.id.toLowerCase() === normalizedVertexId)
         : undefined)
     );
   };
