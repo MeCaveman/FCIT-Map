@@ -6,6 +6,7 @@ import roomsCatalog, { RoomRecord } from "@/data/roomsCatalog";
 import { graphData } from "@/store/graphData";
 import { toast } from "react-toastify";
 import { navigateToObject } from "@/utils/navigationHelper";
+import whereAreYouSvg from "@/assets/img/whereAreYou.svg";
 
 interface WhereAreYouModalProps {
   open: boolean;
@@ -118,7 +119,14 @@ function WhereAreYouModal({ open, onClose, targetObjectName }: WhereAreYouModalP
   return (
     <Dialog open={open} handler={onClose}>
       <DialogHeader>
-        <p>Where are you now?</p>
+        <div className="flex items-center gap-3">
+          <img 
+            src={whereAreYouSvg} 
+            alt="Where are you?" 
+            className="w-12 h-12 object-contain"
+          />
+          <p>Where are you now?</p>
+        </div>
       </DialogHeader>
       <DialogBody>
         <p className="mb-2 text-gray-700 text-sm">
