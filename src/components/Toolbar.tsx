@@ -5,6 +5,7 @@ import { isDesktop } from "react-device-detect";
 import DesktopRouteDetails from "./DesktopRouteDetails";
 import FloorSwitcher from "./FloorSwitcher";
 import SearchBar from "./SearchBar";
+import { SidebarTrigger } from "./ui/sidebar";
 
 function Toolbar() {
   const { navigation, currentFloor } = useContext(NavigationContext) as NavigationContextType;
@@ -25,6 +26,7 @@ function Toolbar() {
   return (
     <>
       <div className="flex space-x-1 mb-4 h-12 relative">
+        {isDesktop && <SidebarTrigger className="mr-2" />}
         <button
           onClick={handleHomeClick}
           className="flex items-center justify-center px-3 bg-white hover:bg-gray-50 border border-gray-300 rounded-lg shadow-sm transition-colors font-semibold text-gray-700"

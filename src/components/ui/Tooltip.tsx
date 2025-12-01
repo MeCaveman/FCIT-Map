@@ -1,59 +1,27 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
+import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { cn } from "./utils";
 
-interface TooltipProps {
-  className?: string;
-  content: string;
-  children: React.ReactNode;
-}
+const TooltipProvider = TooltipPrimitive.Provider;
 
-function Tooltip({ className, content, children }: TooltipProps) {
-  const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+const Tooltip = TooltipPrimitive.Root;
 
-  useEffect(() => {
-    const detectTouch = () => {
-      setIsTouchDevice(true);
-      window.removeEventListener("touchstart", detectTouch);
-    };
-    window.addEventListener("touchstart", detectTouch, { once: true });
+const TooltipTrigger = TooltipPrimitive.Trigger;
 
-    return () => {
-      window.removeEventListener("touchstart", detectTouch);
-    };
-  }, []);
+const TooltipContent = React.forwardRef<
+  React.ElementRef<typeof TooltipPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
+>(({ className, sideOffset = 4, ...props }, ref) => (
+  <TooltipPrimitive.Content
+    ref={ref}
+    sideOffset={sideOffset}
+    className={cn(
+      "z-50 overflow-hidden rounded-md border bg-popover px-3 py-1.5 text-sm text-popover-foreground shadow-md animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    )}
+    {...props}
+  />
+));
+TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
-  const toggleVisibility = () => {
-    if (!isTouchDevice) {
-      setIsVisible(!isVisible);
-    }
-  };
-
-  return (
-    <div className="relative flex items-center">
-      <div
-        onMouseOver={() => !isTouchDevice && setIsVisible(true)}
-        onMouseOut={() => !isTouchDevice && setIsVisible(false)}
-        onClick={toggleVisibility}
-      >
-        {children}
-      </div>
-      {isVisible && (
-        <div
-          className={`absolute z-10 p-1.5 text-white text-sm rounded-md ${className}`}
-          style={{
-            top: "90%",
-            left: "50%",
-            transform: "translateX(-50%) translateY(10px)",
-            marginBottom: "10px",
-            whiteSpace: "nowrap",
-            borderRadius: "4px",
-          }}
-        >
-          {content}
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default Tooltip;
+export { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider };
