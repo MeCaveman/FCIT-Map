@@ -9,8 +9,6 @@ import {
   ObjectItem,
 } from "../utils/types";
 import { MapBackground, Paths, Positions, Objects } from "./IndoorMap";
-import { graphData } from "@/store/graphData";
-import { graphDataF2 } from "@/store/graphDataF2";
 
 import Controls from "./MapControls";
 import ObjectDetailsModal from "./Modals/ObjectDetailsModal";
