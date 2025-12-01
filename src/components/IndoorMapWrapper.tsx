@@ -20,6 +20,10 @@ import { toast } from "react-toastify";
 const DEV_LOG_COORDS = false;
 // Debug mode to show all vertices with labels and click feedback
 const DEBUG_VERTICES = true;
+const FLOOR_CENTERS: Record<string, { x: number; y: number }> = {
+  F1: { x: 2531.52, y: 5327.52 },
+  F2: { x: 2262.3716, y: 3366.75585 },
+};
 
 function IndoorMapWrapper() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -30,12 +34,30 @@ function IndoorMapWrapper() {
   const { navigation, setNavigation, isEditMode, setIsEditMode, currentFloor } = useContext(
     NavigationContext
   ) as NavigationContextType;
+  const previousFloorRef = useRef<string>(currentFloor);
   const { objects } = useContext(MapDataContext) as MapDataContextType;
   const { setModalState } = useContext(WhereAreYouModalContext) || {};
 
   // Get current user position and zoom to it
   useEffect(() => {
     if (transformRef.current && !isEditMode) {
+      const zoomLevel = isMobile ? 3 : 2.5;
+      const centerMapToFloor = () => {
+        const floorCenter = FLOOR_CENTERS[currentFloor] || FLOOR_CENTERS.F1;
+        transformRef.current?.setTransform(
+          -floorCenter.x * zoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
+          -floorCenter.y * zoomLevel + window.innerHeight / 2,
+          zoomLevel,
+          0
+        );
+      };
+
+      if (previousFloorRef.current !== currentFloor) {
+        centerMapToFloor();
+        previousFloorRef.current = currentFloor;
+        return;
+      }
+
       const currentGraphData = currentFloor === "F2" ? graphDataF2 : graphData;
       const userVertex = currentGraphData.vertices.find(
         (v) => v.id === navigation.start
@@ -43,13 +65,15 @@ function IndoorMapWrapper() {
 
       if (userVertex) {
         // Center on user position with zoom level
-        const zoomLevel = isMobile ? 3 : 2.5;
         transformRef.current.setTransform(
           -userVertex.cx * zoomLevel + (isMobile ? window.innerWidth / 2 : window.innerWidth / 3),
           -userVertex.cy * zoomLevel + window.innerHeight / 2,
           zoomLevel,
           0
         );
+      } else {
+        // Fall back to floor center when user vertex isn't on this floor
+        centerMapToFloor();
       }
     }
   }, [navigation.start, isEditMode, currentFloor]);
