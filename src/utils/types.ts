@@ -39,7 +39,8 @@ export interface MapDataContextType {
   objects: ObjectItem[];
   categories: Category[];
   beacons?: Beacon[];
-  refetchData: () => void;
+  refetchData: () => Promise<void>;
+  isLoading: boolean;
 }
 
 export interface AdminContextType {

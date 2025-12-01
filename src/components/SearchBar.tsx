@@ -1,11 +1,7 @@
 import Tooltip from "@/components/ui/Tooltip";
-import {
-  navigateToObject,
-  navigateWithDelay as navigationTestAll,
-  findNearestObjectByCategory,
-} from "@/utils/navigationHelper";
+import { navigateWithDelay as navigationTestAll } from "@/utils/navigationHelper";
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { FiCircle, FiNavigation } from "react-icons/fi";
+import { FiNavigation } from "react-icons/fi";
 import { useOnClickOutside } from "usehooks-ts";
 import { MapDataContext, NavigationContext, WhereAreYouModalContext } from "../pages/Map";
 import {
@@ -193,11 +189,6 @@ function SearchBar() {
       setSuggestions(objects);
     }
     event.currentTarget.select();
-  }
-
-  function handleInputBlur() {
-    setIsAutocomplete(false);
-    setSelectedIndex(-1);
   }
 
   function handleSearch(inputValue: string) {

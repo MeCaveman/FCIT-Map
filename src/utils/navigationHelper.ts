@@ -10,7 +10,7 @@ export let routeLength = 0;
 const findVertexByObjectId = (vertexId: string) =>
   graphData.vertices.find((v) => v.objectName === vertexId);
 
-const findVertexByRoomCatalog = (searchTerm: string) => {
+const findVertexByRoomCatalog = (searchTerm: string): VertexData | undefined => {
   // Try to find room in catalog by ID or name (case-insensitive partial match)
   const searchLower = searchTerm.toLowerCase();
   const room = roomsCatalog.find((r) => 
@@ -23,20 +23,23 @@ const findVertexByRoomCatalog = (searchTerm: string) => {
     // Room found in catalog, now find the corresponding vertex
     return findVertexByObjectId(room.id);
   }
-  return null;
+  return undefined;
 };
 
-const findNearestVertexByCategory = (categoryId: string, startVertexId: string) => {
+const findNearestVertexByCategory = (
+  categoryId: string,
+  startVertexId: string
+): VertexData | undefined => {
   // Find all rooms in the category that have vertices
   const roomsInCategory = roomsCatalog.filter((r) => r.categoryId === categoryId);
   const vertices = roomsInCategory
     .map((room) => findVertexByObjectId(room.id))
     .filter((v): v is VertexData => v !== undefined);
   
-  if (vertices.length === 0) return null;
+  if (vertices.length === 0) return undefined;
   
   // Find the nearest one using Dijkstra
-  let nearest: VertexData | null = null;
+  let nearest: VertexData | undefined;
   let shortestDistance = Infinity;
   
   for (const vertex of vertices) {
